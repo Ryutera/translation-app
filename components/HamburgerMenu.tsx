@@ -11,16 +11,7 @@ import {
 import { createClient } from "@/lib/supabase/server"
 
 import { Menu } from "lucide-react"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog"
+import SubscriptionOption from "./SubscriptionOption"
 
 
 
@@ -54,24 +45,13 @@ const HamburgerMenu = async () => {
           </div>
 
           {user ?
-            <div className="px-4 mb-14">
-              <button className="bg-red-300 w-full h-12 rounded-2xl text-white text-lg font-semibold hover:bg-red-400">プランを見る</button>
-            </div>
+           
+<SubscriptionOption/>
             :
-            <Dialog >
-              <DialogTrigger>
-                <button className="bg-red-300 w-full h-12 rounded-2xl text-white text-lg hover:bg-red-400">無料登録</button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Are you absolutely sure?</DialogTitle>
-                  <DialogDescription>
-                    This action cannot be undone. This will permanently delete your account
-                    and remove your data from our servers.
-                  </DialogDescription>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
+             <div className="px-4 mb-14">
+               <button className="bg-red-300 w-full h-12 rounded-2xl text-white text-lg hover:bg-red-400">無料登録</button>
+             </div>
+            
           }
          
         </SheetContent>

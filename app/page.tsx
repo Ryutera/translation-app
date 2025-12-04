@@ -1,8 +1,9 @@
 import HeaderAuth from "@/components/HeaderAuth";
 import TextInputField from "@/components/TextInputField";
+import getUserId from "@/lib/supabase/getUserId";
 
 
-export default function Home() {
+export default async function Home() {
 
   return (
     <main className="flex flex-col items-center w-full bg-red-50 overflow-scroll" >
@@ -14,11 +15,10 @@ export default function Home() {
 </div>
 
      <TextInputField/>
-     
-
+    
 
 <div className="flex flex-col gap-3 w-[80%] md:w-[60%] mb-10">
-<div className="bg-white  w-full p-5 rounded-2xl">
+<div className="bg-white  w-full p-5 rounded-2xl ">
 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet dolorem deleniti maxime voluptatum dolores? Laudantium consectetur sit magni deserunt magnam quo officiis nobis impedit consequatur! Vel nobis reiciendis ea provident?
 </div>
 <div className="bg-white  w-full p-5 rounded-2xl">

@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+
+
 export function SignUpForm({
   className,
   ...props
@@ -47,6 +49,8 @@ export function SignUpForm({
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
+
+
       if (error) throw error;
       router.push("/auth/sign-up-success");
     } catch (error: unknown) {

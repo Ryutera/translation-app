@@ -1,3 +1,5 @@
+import prisma from "@/lib/prisma";
+import getUserId from "@/lib/supabase/getUserId";
 import { createClient } from "@/lib/supabase/server";
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
@@ -16,13 +18,30 @@ export async function GET(request: NextRequest) {
       type,
       token_hash,
     });
+
+
+    if (error) {
+      
+      // redirect the user to an error page with some instructions
+      redirect(`/auth/error?error=${error?.message}`);
+    
+    }
+//ユーザーデータをデータベースに記録
+    const userId = await getUserId()
+if (userId) {
+  prisma.user.create({
+    data:{
+      authUserId:userId
+    }
+  })
+  
+}
+   
+    
     if (!error) {
       // redirect user to specified redirect URL or root of app
       redirect(next);
-    } else {
-      // redirect the user to an error page with some instructions
-      redirect(`/auth/error?error=${error?.message}`);
-    }
+    } 
   }
 
   // redirect the user to an error page with some instructions

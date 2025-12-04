@@ -13,6 +13,7 @@ import { createClient } from "@/lib/supabase/server"
 import { Menu } from "lucide-react"
 import SubscriptionOption from "./SubscriptionOption"
 
+import Link from "next/link"
 
 
 const HamburgerMenu = async () => {
@@ -21,7 +22,7 @@ const HamburgerMenu = async () => {
  const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  
+
   return (
 
       <Sheet>
@@ -49,7 +50,9 @@ const HamburgerMenu = async () => {
 <SubscriptionOption/>
             :
              <div className="px-4 mb-14">
+              <Link href="/auth/sign-up">
                <button className="bg-red-300 w-full h-12 rounded-2xl text-white text-lg hover:bg-red-400">無料登録</button>
+             </Link>
              </div>
             
           }

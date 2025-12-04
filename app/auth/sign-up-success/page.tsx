@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,8 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Page() {
+ 
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
@@ -25,6 +28,7 @@ export default function Page() {
               </p>
             </CardContent>
           </Card>
+          <Button><Link href={"/"}>Go to Home</Link></Button>
         </div>
       </div>
     </div>

@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+   url = env("DATABASE_URL")
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+enum InputType {
+  TEXT
+  VOICE
+  IMAGE
+}
+
+model User {
+  id               String        @id @default(uuid())
+  authUserId       String        @unique
+  plan             Plan          @default(FREE)
+  proUntil         DateTime?
+  stripeCustomerId String?
+  createdAt        DateTime      @default(now())
+  translations     Translation[]
+}
+
+model Translation {
+  id             String    @id @default(uuid())
+  user           User?  @relation(fields: [userId], references: [id])
+  userId         String?
+  sourceText     String
+  translatedText String
+  sourceLang     String
+  targetLang     String
+  inputType      InputType @default(TEXT)
+  charCount      Int
+  createdAt      DateTime  @default(now())
+}

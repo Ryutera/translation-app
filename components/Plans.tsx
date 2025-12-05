@@ -6,10 +6,12 @@ import axios from 'axios'
 
 const Plans = () => {
    const [selectedPlan, setSelectedPlan] = useState<""|"anual"|"monthly">("")
-   const router = useRouter()
+   const notSelected = selectedPlan===""
 
 async function handlePayment(){
-    const res = await axios.post("/api/checkout_sessions")
+    const res = await axios.post("/api/checkout_sessions",{
+      selectedPlan:selectedPlan
+    })
 
 console.log(res,"res")
   const url = res.data.url
@@ -77,7 +79,7 @@ console.log(res,"res")
 
        {/* Payment Button */}
 
-      <button onClick={handlePayment} className="w-full bg-red-400 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition">
+      <button onClick={handlePayment} disabled={notSelected} className={`w-full ${notSelected? "bg-gray-400" : "bg-red-400"} text-white font-bold py-4 rounded-2xl hover:opacity-90 transition`}>
         Payments
       </button>
   

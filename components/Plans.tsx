@@ -1,9 +1,24 @@
 "use client"
+
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const Plans = () => {
    const [selectedPlan, setSelectedPlan] = useState<""|"anual"|"monthly">("")
+   const router = useRouter()
 
+async function handlePayment(){
+    const res = await axios.post("/api/checkout_sessions")
+
+console.log(res,"res")
+  const url = res.data.url
+ console.log(res,"res")
+   if (url) {
+    window.location.href = url
+  }
+
+   }
 
   return (
     <>
@@ -59,6 +74,13 @@ const Plans = () => {
           </div>
         ))}
       </div>
+
+       {/* Payment Button */}
+
+      <button onClick={handlePayment} className="w-full bg-red-400 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition">
+        Payments
+      </button>
+  
       </>
   )
 }

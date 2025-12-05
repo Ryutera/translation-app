@@ -9,6 +9,7 @@ import {
 } from "./ui/dialog"
 import Plans from './Plans'
 
+
 const SubscriptionOption = () => {
   return (
       
@@ -32,11 +33,7 @@ const SubscriptionOption = () => {
 
      <Plans/>
 
-      {/* Payment Button */}
-      <button className="w-full bg-red-400 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition">
-        Payments
-      </button>
-      
+     
       <p className="text-xs text-center text-gray-500 mt-3">
         Cancel anytime during free trial
       </p>

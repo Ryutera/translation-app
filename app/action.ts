@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma"
 
 
 
+
 export async function addUserData (userId:string){
     if (!userId) {
         console.log("エラー")
@@ -14,5 +15,6 @@ export async function addUserData (userId:string){
             authUserId:userId
         }
     })
-
 }
+
+

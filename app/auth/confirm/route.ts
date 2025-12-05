@@ -1,5 +1,4 @@
-import prisma from "@/lib/prisma";
-import getUserId from "@/lib/supabase/getUserId";
+
 import { createClient } from "@/lib/supabase/server";
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
@@ -13,7 +12,7 @@ export async function GET(request: NextRequest) {
 
   if (token_hash && type) {
     const supabase = await createClient();
-
+// ワンタイムパスワードを検証
     const { error } = await supabase.auth.verifyOtp({
       type,
       token_hash,
@@ -26,16 +25,7 @@ export async function GET(request: NextRequest) {
       redirect(`/auth/error?error=${error?.message}`);
     
     }
-//ユーザーデータをデータベースに記録
-    const userId = await getUserId()
-if (userId) {
-  prisma.user.create({
-    data:{
-      authUserId:userId
-    }
-  })
-  
-}
+
    
     
     if (!error) {

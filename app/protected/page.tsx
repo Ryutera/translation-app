@@ -1,6 +1,7 @@
 // app/protected/page.tsx
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import axios from "axios";
 // すでにログイン済みかどうかチェック
 export default async function ProtectedPage() {
   const supabase = await createClient();
@@ -10,11 +11,11 @@ export default async function ProtectedPage() {
   } = await supabase.auth.getUser();
 
 
-
+// メールを踏んでここに遷移
   if (!user) {
     redirect("/auth/login"); 
   }
 
-  // リンクを踏んだ時点でログイン状態になる
+ 
   redirect("/"); 
 }

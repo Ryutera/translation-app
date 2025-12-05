@@ -16,9 +16,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-
-
-
 export function LoginForm({
   className,
   ...props
@@ -36,12 +33,12 @@ export function LoginForm({
     setError(null);
   
 
+
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-
 
 
       if (error) throw error;

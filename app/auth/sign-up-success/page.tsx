@@ -28,7 +28,7 @@ export default function Page() {
               </p>
             </CardContent>
           </Card>
-          <Button><Link href={"/"}>Go to Home</Link></Button>
+          {/* <Button><Link href={"/"}>Go to Home</Link></Button> */}
         </div>
       </div>
     </div>

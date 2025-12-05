@@ -2,7 +2,7 @@
 
 import OpenAI from "openai";
 
-export const generateTranslation = async(input:string)=>{
+export const generateTranslation = async(input:string,lang:string)=>{
  
 const openai = new OpenAI();
 
@@ -19,7 +19,7 @@ For every input text, do the following:
    - Not rude slang
    - No keigo, unless the input clearly needs it
 
-3. Then give a **short explanation** in the user's language as same as the input.  
+3. Then give a **short explanation** in ${lang}.  
    - Focus only on useful points: nuance, casual expressions, contractions, and word choices.
    - Do NOT add cultural essays or long background info.
 

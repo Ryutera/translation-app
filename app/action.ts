@@ -1,5 +1,7 @@
 "use server";
 
+import prisma from "@/lib/prisma";
+import getUserId from "@/lib/supabase/getUserId";
 import OpenAI from "openai";
 
 export const generateTranslation = async(input:string,lang:string)=>{
@@ -44,10 +46,29 @@ Rules:
     input: input
 });
 
+const data = await JSON.stringify(response)
+
+const userId = await getUserId()
+console.log(userId,"ユーザーid")
 
 
-console.log(response);
-const data = JSON.stringify(response)
+if (userId) {
+    try{
+  await prisma.translation.create({
+        data:{
+           
+            userId:userId,
+            sourceText:input,
+            output:response.output_text,
+            sourceLang:lang
+        }
+    })
+    }catch(err){
+        console.log(err)
+    }  
+}
+
+
 return data
 
 

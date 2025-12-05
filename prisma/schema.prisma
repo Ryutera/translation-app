@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-   url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 enum Plan {
@@ -35,14 +35,11 @@ model User {
 }
 
 model Translation {
-  id             String    @id @default(uuid())
-  user           User?  @relation(fields: [userId], references: [id])
-  userId         String?
-  sourceText     String
-  translatedText String
-  sourceLang     String
-  targetLang     String
-  inputType      InputType @default(TEXT)
-  charCount      Int
-  createdAt      DateTime  @default(now())
+  id         String   @id @default(uuid())
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  sourceText String
+  output     String
+  sourceLang String
+  createdAt  DateTime @default(now())
 }

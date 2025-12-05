@@ -66,18 +66,18 @@ return err
            
           {output?
           <div className=" flex items-start justify-start flex-col gap-5">
-            <div className="text-left bg-red-200 p-2 rounded-lg text-white font-semibold">
-            <p>translation</p>
+            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold">
+            <p>Translation</p>
             <p>{translation}</p>
             </div>
 
-            <div className="text-left bg-red-200 p-2 rounded-lg text-white font-semibold">
-            <p>meaning</p>
+            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold">
+            <p>Meaning</p>
             <p>{meaning}</p>
              </div>
 
-             <div  className="text-left bg-red-200 p-2 rounded-lg text-white font-semibold">
-            <p>explanation</p>
+             <div  className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold">
+            <p>Explanation</p>
             <ul>
             {explanations.map((exp:string[],index:number)=>(
                <li className="mb-2" key={index}>{exp}</li>

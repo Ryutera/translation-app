@@ -15,8 +15,6 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import prisma from "@/lib/prisma";
-import { createUser } from "@/app/action";
 
 
 export function SignUpForm({
@@ -47,15 +45,14 @@ export function SignUpForm({
         email,
         password,
         options: {
+          //メール認証後ここに遷移
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
 
       const userauthId = data.user?.id
-      console.log(userauthId,"アイディ")
-if (userauthId) {
-    await createUser(userauthId!)
-}
+    
+      
 
 
 

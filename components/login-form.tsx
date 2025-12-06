@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createUser } from "@/app/action";
 
 export function LoginForm({
   className,
@@ -35,13 +36,21 @@ export function LoginForm({
 
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
 
       if (error) throw error;
+
+      const userauthId = data.user.id
+
+      if (userauthId) {
+  //ユーザー登録
+    await createUser(userauthId!)
+}
+
       
       router.push("/");
     } catch (error: unknown) {

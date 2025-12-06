@@ -72,12 +72,18 @@ if (userId) {
 return data
 }
 
-//ユーザー登録
+//(アカウントがない場合に)ユーザー登録
 export async function createUser (id:string){
    
-await prisma.user.create({
+  const hasAccount =  await prisma.user.findUnique({
+        where:{
+            authUserId:id
+        }
+    })
+    hasAccount || await prisma.user.create({
     data:{
         authUserId:id
     }
 })
+
 }

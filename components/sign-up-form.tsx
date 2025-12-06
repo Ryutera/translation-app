@@ -15,6 +15,8 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import prisma from "@/lib/prisma";
+import { createUser } from "@/app/action";
 
 
 export function SignUpForm({
@@ -41,13 +43,20 @@ export function SignUpForm({
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
+
+      const userauthId = data.user?.id
+      console.log(userauthId,"アイディ")
+if (userauthId) {
+    await createUser(userauthId!)
+}
+
 
 
       if (error) throw error;

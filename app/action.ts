@@ -70,7 +70,14 @@ if (userId) {
 
 
 return data
+}
 
-
-
+//ユーザー登録
+export async function createUser (id:string){
+   
+await prisma.user.create({
+    data:{
+        authUserId:id
+    }
+})
 }

@@ -13,6 +13,7 @@ const TextInputField = () => {
      const selectCHN = useLangOpstion((state)=>state.selectCHN)
       const selectKOR = useLangOpstion((state)=>state.selectKOR)
        const selectENG = useLangOpstion((state)=>state.selectENG)
+       const selectJPN = useLangOpstion((state)=>state.selectJPN)
 
 
        console.log((output as any)?.output_text as string,"データ")
@@ -28,6 +29,10 @@ const TextInputField = () => {
 
               case "Chinese":
             selectCHN()
+            break;
+
+             case "Japanese":
+            selectJPN()
             break;
        }
        }
@@ -98,6 +103,7 @@ return err
                         <option value="English">English</option>
                         <option value="Chinese" >Chinese</option>
                         <option value="Korean" >Korean</option>
+                         <option value="Japanese" >Japanese</option>
                     </select>
                     </div>
                 </div>

@@ -40,6 +40,5 @@ model Translation {
   userId     String?
   sourceText String
   output     String
-  sourceLang String
   createdAt  DateTime @default(now())
 }

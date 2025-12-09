@@ -63,7 +63,7 @@ if (userId) {
             userId:userId,
             sourceText:input,
             output:response.output_text,
-            sourceLang:""
+           
         }
     })
     }catch(err){

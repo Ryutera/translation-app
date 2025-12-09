@@ -1,8 +1,12 @@
 import HeaderAuth from "@/components/HeaderAuth";
 import TextInputField from "@/components/TextInputField";
+import getUserId from "@/lib/supabase/getUserId";
+import { Suspense } from "react";
 
 
 export default async function Home() {
+
+
 
 
   return (
@@ -11,11 +15,12 @@ export default async function Home() {
       <HeaderAuth/>
 <div className="mt-20 mb-1 w-[80%] md:w-[60%]">
   <h1 className="text-3xl mb-10">日本語の自然な表現をAIが翻訳!</h1>
-  <p className="text-sm">無料翻訳　3/5</p>
+  {/* <p className="text-sm">無料翻訳　3/5</p> */}
   
 </div>
 
-     <TextInputField/>
+     <TextInputField />
+
     
 
 <div className="flex flex-col gap-3 w-[80%] md:w-[60%] mb-10">

@@ -1,20 +1,21 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecordButton from "./RecordButton";
 import { generateTranslation } from "@/app/action";
+import getUserId from "@/lib/supabase/getUserId";
 
 type TranslationResultOk = {
-  status: "ok";
-  detectedLang: string;
-  translationJa: string;
-  meaningUserLang: string;
-  notes: string[];
+    status: "ok";
+    detectedLang: string;
+    translationJa: string;
+    meaningUserLang: string;
+    notes: string[];
 };
 
 type TranslationResultInvalid = {
-  status: "invalid_input";
-  detectedLang: string | null;
-  messageUserLang: string;
+    status: "invalid_input";
+    detectedLang: string | null;
+    messageUserLang: string;
 };
 
 export type TranslationResult = TranslationResultOk | TranslationResultInvalid;
@@ -23,7 +24,44 @@ export type TranslationResult = TranslationResultOk | TranslationResultInvalid;
 const TextInputField = () => {
     const [inputText, setInputText] = useState("")
     const [loading, setLoading] = useState(false)
-    const [output, setOutput] = useState<TranslationResult|null>(null)
+    const [output, setOutput] = useState<TranslationResult | null>(null)
+    const [usageCount, setUsageCount] = useState<number|null>(null)
+
+
+
+    useEffect(() => {
+        const data = localStorage.getItem("usageCount")
+        // ローカルストレージにデータがない場合に初期値の3を入れる
+        if (!data) {
+            localStorage.setItem("usageCount", JSON.stringify("3"))
+            const count = localStorage.getItem("usageCount")
+            setUsageCount(JSON.parse(count!))
+            return
+        } else {
+            const count = JSON.parse(data)
+ 
+            count < 0 ? setUsageCount(0) : setUsageCount(count)
+        }
+    }, [])
+
+
+
+
+    const decreaceCount = () => {
+
+      const data = localStorage.getItem("usageCount")
+            let count = JSON.parse(data!)
+            if (count <= 0) {
+                setUsageCount(0)
+                return
+            }
+            count -= 1
+            setUsageCount(count)
+            localStorage.setItem("usageCount", count)
+            console.log(localStorage.getItem("usageCount"))
+        
+    }
+
 
 
     const getTranslationData = async () => {
@@ -31,13 +69,13 @@ const TextInputField = () => {
             setLoading(true)
             const res = await generateTranslation(inputText)
             if (!res) {
-               return 
+                return
             }
 
             const data = await JSON.parse(res)
-         
+
             setOutput(data as TranslationResult)
-        
+
 
         } catch (err) {
             return err
@@ -47,41 +85,41 @@ const TextInputField = () => {
     }
 
 
+
+
     let translation
     let meaning
-    let notes 
-if (output?.status==="ok") {
-     translation = output?.translationJa
- meaning= output?.meaningUserLang
- notes = output?.notes
-}
-
-    
+    let notes
+    if (output?.status === "ok") {
+        translation = output?.translationJa
+        meaning = output?.meaningUserLang
+        notes = output?.notes
+    }
 
 
- console.log(translation,"翻訳")
 
     return (
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
-
-            <div className={`${(output||loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
+            {usageCount?  <p className="text-sm">無料翻訳　{usageCount}/3</p>:  <p className="text-sm">利用制限に達しました</p> }
+            <button onClick={() => localStorage.setItem("usageCount", JSON.stringify("1"))}>reset</button>
+            <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <textarea placeholder="好きな言語で入力..." className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />
 
 
                 {loading ?
-                output?.status === "invalid_input"? <>invalid</>: 
-                    <div className="flex items-center justify-center  w-full ">
-                    <p id="loading">Loading 
-                        <span className="dot">.</span>
-                        <span className="dot">.</span>
-                        <span className="dot">.</span></p>   
+                    output?.status === "invalid_input" ? <>invalid</> :
+                        <div className="flex items-center justify-center  w-full ">
+                            <p id="loading">Loading
+                                <span className="dot">.</span>
+                                <span className="dot">.</span>
+                                <span className="dot">.</span></p>
                         </div>
                     : output ?
                         <div className=" flex items-start justify-start flex-col gap-5 ">
                             <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
                                 <p>Translation</p>
-                            <p>{translation}</p>
+                                <p>{translation}</p>
                             </div>
 
                             <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
@@ -105,10 +143,10 @@ if (output?.status==="ok") {
 
             <div className="flex flex-row">
                 <RecordButton />
-               
+
             </div>
 
-            <button onClick={getTranslationData} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳する ↑</button>
+            <button onClick={() => { getTranslationData(); decreaceCount() }} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳する ↑</button>
 
         </div>
 

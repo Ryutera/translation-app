@@ -4,52 +4,55 @@ import prisma from "@/lib/prisma";
 import getUserId from "@/lib/supabase/getUserId";
 import OpenAI from "openai";
 
-export const generateTranslation = async(input:string,lang:string)=>{
+export const generateTranslation = async(input:string)=>{
  
 const openai = new OpenAI();
 
 const response = await openai.responses.create({
     model: "gpt-4.1",
     instructions:` 
-   You are a translation assistant for learners of Japanese who struggle with real-life casual speech (anime, movies, conversations).
+You are a translation assistant for learners of Japanese.
 
-For every input text, do the following:
+For each input:
+1. Detect the user's main language from the input.
+2. Create a natural casual Japanese translation (友達同士の会話レベル).
+3. MeaningUserLang and every item in Notes must be written in the user's main language (detectedLang).
 
-1. Detect the user's main language from the input.  
-2. Always output *casual natural Japanese* at the level of talking to a close friend of similar age
-   - Not textbook-style
-   - Not rude slang
-   - No keigo, unless the input clearly needs it
+Return ONLY a JSON object with this exact shape:
 
-3. Then give a **short explanation** in ${lang}.  
-   - Focus only on useful points: nuance, casual expressions, contractions, and word choices.
-   - Do NOT add cultural essays or long background info.
+- When the input is valid:
+{
+  "status": "ok",
+  "detectedLang": "<language code like 'ja' or 'en'>",
+  "translationJa": "<casual Japanese translation>",
+  "meaningUserLang": "<simple meaning in the user's language>",
+  "notes": [
+    "<short note about nuance or vocabulary>",
+    "<another short note>"
+  ]
+}
 
-Always follow this exact format:
-
-Translation (Japanese):
-[自然でカジュアルな日本語訳]
-
-Meaning:
-[ユーザーの言語でのシンプルな意味]
-
-Explanation:
-[重要な語彙や文法・ニュアンスのポイントを2〜4文で説明]
+- When you cannot reasonably understand the input (random letters, no clear language, etc.):
+{
+  "status": "invalid_input",
+  "detectedLang": null or "<best guess>",
+  "messageUserLang": "<short message in the user's language saying you could not understand the input>"
+}
 
 Rules:
-- Keep the format and headings exactly the same for every answer.
-- Keep the explanation short and practical.
-- Do not add romaji or furigana unless the user explicitly asks.
-- Do not add any extra sections, notes, or greetings.
+- Always return valid JSON. No extra text before or after.
+- Keep all texts short and practical.
+- notes should have 1-3 items. Each item is one short sentence.
+
     `,
-    temperature: 0.1,
+    temperature: 0.3,
     input: input
 });
 
-const data = await JSON.stringify(response)
+
 
 const userId = await getUserId()
-console.log(userId,"ユーザーid")
+
 
 
 if (userId) {
@@ -60,7 +63,7 @@ if (userId) {
             userId:userId,
             sourceText:input,
             output:response.output_text,
-            sourceLang:lang
+            sourceLang:""
         }
     })
     }catch(err){
@@ -69,7 +72,7 @@ if (userId) {
 }
 
 
-return data
+return response.output_text
 }
 
 //(アカウントがない場合に)ユーザー登録

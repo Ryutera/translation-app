@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecordButton from "./RecordButton";
 import { generateTranslation } from "@/app/action";
 import useQuota from "@/app/hooks/useQuota";
@@ -35,6 +35,7 @@ const TextInputField = ({ userId }: Props) => {
 
 
 
+
     const getTranslationData = async () => {
         try {
             setLoading(true)
@@ -60,7 +61,7 @@ const TextInputField = ({ userId }: Props) => {
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
             {userId ?
-            //無料ログインユーザー
+                //無料ログインユーザー
                 isLimitReached?  <p className="text-sm">利用制限に達しました</p> : <p>ログインユーザー 利用回数{remaining}/10</p>
                 :
                 //非ログインユーザー
@@ -73,7 +74,6 @@ const TextInputField = ({ userId }: Props) => {
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <textarea placeholder="好きな言語で入力..." className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />
                 <ResultView loading={loading} output={output}/>
-
             </div>
 
 

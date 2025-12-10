@@ -50,10 +50,8 @@ Rules:
 });
 
 
-
+//ログイン時には翻訳結果をデータベースに追加
 const userId = await getUserId()
-
-
 
 if (userId) {
     try{
@@ -106,4 +104,17 @@ const used = await prisma.translation.count({
 
 return used
     
+}
+
+
+export async function getTranslationHistory(userId:string){
+   
+    const translations = await prisma.translation.findMany({
+        where:{
+            userId:userId
+        }
+    }
+    )
+
+    return translations
 }

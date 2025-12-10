@@ -27,7 +27,7 @@ const ResultView = (props: Props) => {
         </div>
 
     } else if (output?.status === "invalid_input") {
-        return <div className="flex items-center justify-center  w-full ">invalid</div>
+        return <div className="flex items-center justify-center  w-full ">翻訳できませんでした😓</div>
     } else if (output?.status === "ok") {
         return <div className=" flex items-start justify-start flex-col gap-5 ">
             <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">

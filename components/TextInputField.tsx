@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import RecordButton from "./RecordButton";
-import { generateTranslation } from "@/app/action";
+import { checkQuotaToday, generateTranslation } from "@/app/action";
 import getUserId from "@/lib/supabase/getUserId";
 
 type TranslationResultOk = {
@@ -20,16 +20,17 @@ type TranslationResultInvalid = {
 
 export type TranslationResult = TranslationResultOk | TranslationResultInvalid;
 
+
 interface Props {
-    userId: string|undefined
+    userId ? : string
 }
-const TextInputField = (userId:Props) => {
+const TextInputField = ({userId}:Props) => {
     const [inputText, setInputText] = useState("")
     const [loading, setLoading] = useState(false)
     const [output, setOutput] = useState<TranslationResult | null>(null)
     const [usageCount, setUsageCount] = useState<number|null>(null)
   
-    console.log(userId)
+
 
     useEffect(() => {
         const data = localStorage.getItem("usageCount")
@@ -98,7 +99,8 @@ const TextInputField = (userId:Props) => {
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
             {usageCount?  <p className="text-sm">無料翻訳　{usageCount}/3</p>:  <p className="text-sm">利用制限に達しました</p> }
-            <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(2))}>reset</button>
+            {/* <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(3))}>reset</button>
+        <button onClick={()=>checkQuotaToday(userId!)}>アクション</button> */}
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <textarea placeholder="好きな言語で入力..." className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />
 

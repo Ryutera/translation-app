@@ -7,6 +7,7 @@ const useQuota = (userId: string|undefined) => {
     const DAILY_LIMIT = 10;
 
     const [remaining, setRemaining] = useState<number | null>(null);
+    const [isLimitReached,setIsLimitReached] = useState(false)
   
 
 
@@ -24,7 +25,7 @@ const useQuota = (userId: string|undefined) => {
 
                 } else {
                     const count = JSON.parse(data)
-                    count < 0 ? setRemaining(0) : setRemaining(count)
+                    count <= 0 ? setIsLimitReached(true) : setRemaining(count)
                 }
             }
         }
@@ -41,7 +42,7 @@ const useQuota = (userId: string|undefined) => {
             const data = localStorage.getItem("usageCount")
             let count = JSON.parse(data!)
             if (count <= 0) {
-               setRemaining(0)
+             setIsLimitReached(true)
                 return
             }
             count -= 1
@@ -52,7 +53,7 @@ const useQuota = (userId: string|undefined) => {
     }
 
 
-    return { decreaseCount,remaining }
+    return { decreaseCount,remaining,isLimitReached }
 }
 
 export default useQuota

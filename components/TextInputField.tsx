@@ -1,8 +1,10 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RecordButton from "./RecordButton";
-import {  checkQuotaToday, generateTranslation } from "@/app/action";
+import { generateTranslation } from "@/app/action";
 import useQuota from "@/app/hooks/useQuota";
+import ResultView from "./ResultView";
+
 
 
 type TranslationResultOk = {
@@ -23,13 +25,13 @@ export type TranslationResult = TranslationResultOk | TranslationResultInvalid;
 
 
 interface Props {
-    userId ? : string
+    userId?: string
 }
-const TextInputField = ({userId}:Props) => {
+const TextInputField = ({ userId }: Props) => {
     const [inputText, setInputText] = useState("")
     const [loading, setLoading] = useState(false)
     const [output, setOutput] = useState<TranslationResult | null>(null)
-    const { decreaseCount,remaining } = useQuota(userId)
+    const { decreaseCount, remaining ,isLimitReached} = useQuota(userId)
 
 
 
@@ -52,63 +54,25 @@ const TextInputField = ({userId}:Props) => {
 
 
 
-    let translation
-    let meaning
-    let notes
-    if (output?.status === "ok") {
-        translation = output?.translationJa
-        meaning = output?.meaningUserLang
-        notes = output?.notes
-    }
-
 
 
     return (
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
-          {userId? 
-           <p>ログインユーザー 利用回数{remaining}/10</p>
-          : 
-           remaining===0?  <p className="text-sm">無料翻訳　{remaining}/3</p>:  <p className="text-sm">利用制限に達しました</p>}
-           
-            {/* <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(3))}>reset</button>
+            {userId ?
+            //無料ログインユーザー
+                isLimitReached?  <p className="text-sm">利用制限に達しました</p> : <p>ログインユーザー 利用回数{remaining}/10</p>
+                :
+                //非ログインユーザー
+                isLimitReached ? <p className="text-sm">利用制限に達しました</p>:<p className="text-sm">無料翻訳　{remaining}/3</p>
+                }
+{/* 
+            <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(3))}>reset</button>
         <button onClick={()=>checkQuotaToday(userId!)}>アクション</button> */}
+
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <textarea placeholder="好きな言語で入力..." className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />
-
-
-                {loading ?
-
-                        <div className="flex items-center justify-center  w-full ">
-                            <p id="loading">Loading
-                                <span className="dot">.</span>
-                                <span className="dot">.</span>
-                                <span className="dot">.</span></p>
-                        </div>
-                    :  !output ? <></>: output?.status === "invalid_input" ? 
-                    <div className="flex items-center justify-center  w-full ">invalid</div> 
-                    :
-                        <div className=" flex items-start justify-start flex-col gap-5 ">
-                            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
-                                <p>Translation</p>
-                                <p>{translation}</p>
-                            </div>
-
-                            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
-                                <p>Meaning</p>
-                                <p>{meaning}</p>
-                            </div>
-
-                            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
-                                <p>Explanation</p>
-                                <ul>
-                                    {notes?.map((note: string, index: number) => (
-                                        <li className="mb-2 " key={index}>・{note}</li>
-                                    ))}
-                                </ul>
-
-                            </div>
-                        </div> }
+                <ResultView loading={loading} output={output}/>
 
             </div>
 
@@ -117,14 +81,8 @@ const TextInputField = ({userId}:Props) => {
                 <RecordButton />
 
             </div>
-{userId ? 
- <button onClick={() => { getTranslationData(); decreaseCount()}} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳する ↑</button>
-:
-
- <button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!remaining||!inputText} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳する ↑</button>}
-           
-
-        </div>
+                <button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText || isLimitReached} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>
+            </div>
 
 
     )

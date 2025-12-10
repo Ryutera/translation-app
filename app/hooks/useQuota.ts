@@ -6,16 +6,21 @@ const useQuota = (userId: string|undefined) => {
     //無料ログインユーザー用の利用回数
     const DAILY_LIMIT = 10;
 
-    const [remaining, setRemaining] = useState<number | null>(null);
+    const [remaining, setRemaining] = useState<number>(3);
     const [isLimitReached,setIsLimitReached] = useState(false)
-  
-
 
     useEffect(() => {
         const init = async () => {
             if (userId) {
-                const count = await checkQuotaToday(userId)
-                setRemaining(DAILY_LIMIT - count)
+                try {
+               const used = await checkQuotaToday(userId)
+                const rest = Math.max(DAILY_LIMIT - used, 0);
+                rest > 0 ? setRemaining(rest): setIsLimitReached(true) 
+             
+                } catch (error) {
+                    console.log(error)
+                }           
+                
             } else {
                 const data = localStorage.getItem("usageCount")
                 // ローカルストレージにデータがない場合に初期値の3を入れる
@@ -25,20 +30,25 @@ const useQuota = (userId: string|undefined) => {
 
                 } else {
                     const count = JSON.parse(data)
-                    count <= 0 ? setIsLimitReached(true) : setRemaining(count)
+                    count <  1 ? setIsLimitReached(true) : setRemaining(count)
                 }
             }
         }
         init()
     }, [])
+   
 
-
+useEffect(() => {
+    //残り0になった直後に値を切り替える
+  if (remaining <= 0) {
+    setIsLimitReached(true);
+  }
+}, [userId, remaining]);
 
     const decreaseCount = async () => {
        
         if (userId) {
-            const used = await checkQuotaToday(userId)
-            setRemaining(DAILY_LIMIT - used)
+       setRemaining(prev => Math.max(prev - 1, 0))
         } else {
 
             const data = localStorage.getItem("usageCount")
@@ -46,11 +56,11 @@ const useQuota = (userId: string|undefined) => {
             if (count <= 0) {
              setIsLimitReached(true)
                 return
-            }
+            }else{
             count -= 1
             setRemaining(count)
             localStorage.setItem("usageCount", count)
-
+            }
         }
     }
 

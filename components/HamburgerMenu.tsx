@@ -13,6 +13,7 @@ import LangSelector from "./LangSelector"
 import { DialogHeader } from "./ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
+import { Suspense } from "react"
 
 
 const HamburgerMenu = async () => {
@@ -44,9 +45,9 @@ const HamburgerMenu = async () => {
         </div>
 
         <div className="h-full ">
-          
+         
           {user && <TranslationHistory  userId={userId}/>}
-          
+         
     
         </div>
 

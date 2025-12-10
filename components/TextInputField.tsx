@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RecordButton from "./RecordButton";
 import { generateTranslation } from "@/app/action";
 import useQuota from "@/app/hooks/useQuota";
@@ -34,8 +34,6 @@ const TextInputField = ({ userId }: Props) => {
     const { decreaseCount, remaining ,isLimitReached} = useQuota(userId)
 
 
-
-
     const getTranslationData = async () => {
         try {
             setLoading(true)
@@ -54,15 +52,12 @@ const TextInputField = ({ userId }: Props) => {
     }
 
 
-
-
-
     return (
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
             {userId ?
                 //無料ログインユーザー
-                isLimitReached?  <p className="text-sm">利用制限に達しました</p> : <p>ログインユーザー 利用回数{remaining}/10</p>
+                isLimitReached?  <p className="text-sm">本日の利用制限に達しました</p> : <p>ログインユーザー 利用回数{remaining}/10</p>
                 :
                 //非ログインユーザー
                 isLimitReached ? <p className="text-sm">利用制限に達しました</p>:<p className="text-sm">無料翻訳　{remaining}/3</p>
@@ -81,7 +76,7 @@ const TextInputField = ({ userId }: Props) => {
                 <RecordButton />
 
             </div>
-                <button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText || isLimitReached} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>
+                <button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText || isLimitReached} className={`${(!isLimitReached && inputText ) ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>
             </div>
 
 

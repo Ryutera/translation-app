@@ -1,11 +1,10 @@
-import HeaderAuth from "@/components/HeaderAuth";
-import TextInputField from "@/components/TextInputField";
-import getUserId from "@/lib/supabase/getUserId";
-import { Suspense } from "react";
 
+
+import HeaderAuth from "@/components/HeaderAuth";
+import { Suspense } from "react";
+import TextInputFieldServer from "@/components/TextInputFieldServer";
 
 export default async function Home() {
-
 
 
 
@@ -19,9 +18,12 @@ export default async function Home() {
   
 </div>
 
-     <TextInputField />
 
-    
+<Suspense>
+  {/* サーバー側からuserIdを渡すためのコンポーネント */}
+  <TextInputFieldServer/>
+</Suspense>
+     
 
 <div className="flex flex-col gap-3 w-[80%] md:w-[60%] mb-10">
 <div className="bg-white  w-full p-5 rounded-2xl ">

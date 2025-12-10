@@ -131,3 +131,13 @@ export async function getTranslationHistory(userId:string){
 
     return translations
 }
+
+
+export async function deleteTranslationHistory(id:string){
+    await prisma.translation.delete({
+        where:{
+            id:id
+        }
+    })
+
+}

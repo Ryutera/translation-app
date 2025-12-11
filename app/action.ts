@@ -124,7 +124,8 @@ export async function getTranslationHistory(userId:string){
    
     const translations = await prisma.translation.findMany({
         where:{
-            userId:userId
+            userId:userId,
+            isHidden:false
         }
     }
     )
@@ -134,10 +135,13 @@ export async function getTranslationHistory(userId:string){
 
 
 export async function deleteTranslationHistory(id:string){
-    await prisma.translation.delete({
-        where:{
-            id:id
-        }
+    await prisma.translation.update({
+  where:{
+    id:id
+  },
+  data:
+    {isHidden:true }
+  
     })
 
 }

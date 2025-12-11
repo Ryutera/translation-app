@@ -41,4 +41,5 @@ model Translation {
   sourceText String
   output     String
   createdAt  DateTime @default(now())
+   isHidden   Boolean  @default(false)
 }

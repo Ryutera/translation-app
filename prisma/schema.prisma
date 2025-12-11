@@ -15,7 +15,8 @@ datasource db {
 
 enum Plan {
   FREE
-  PRO
+  year
+  monthly
 }
 
 enum InputType {
@@ -41,5 +42,5 @@ model Translation {
   sourceText String
   output     String
   createdAt  DateTime @default(now())
-   isHidden   Boolean  @default(false)
+  isHidden   Boolean  @default(false)
 }

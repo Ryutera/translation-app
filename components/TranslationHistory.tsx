@@ -11,7 +11,7 @@ const TranslationHistory = async ({ userId }: Props) => {
   const translations = await getTranslationHistory(userId!)
 
   return (
-   <div className="flex flex-col h-[80%] overflow-y-scroll gap-3 justify-center mt-12">
+   <div className="flex flex-col h-[80%] overflow-y-scroll gap-3  mt-12">
   {translations.map((translation) => (
     <div
       key={translation.id}

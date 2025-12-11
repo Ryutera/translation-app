@@ -26,7 +26,7 @@ const SuccessContent = async({session_id}:Props) => {
    
     return (
       
-      <section id="success">
+      <section id="success" className='h-screen w-full flex flex-col items-center justify-center'>
         <p>
           We appreciate your business! A confirmation email will be sent to{' '}
           {/* {customerEmail}. If you have any questions, please email{' '} */}

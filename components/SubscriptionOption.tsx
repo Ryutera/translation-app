@@ -12,7 +12,7 @@ const SubscriptionOption = () => {
       
       <Dialog>
   <DialogTrigger asChild> 
-    <button className="mb-14 bg-red-300 w-[80%] mx-auto h-12 rounded-2xl text-white text-lg font-semibold hover:bg-red-400">
+    <button className="mb-14 bg-red-300 w-[80%] mx-auto h-16 rounded-2xl text-white text-lg font-semibold hover:bg-red-400">
       View Plans
     </button>
   </DialogTrigger>

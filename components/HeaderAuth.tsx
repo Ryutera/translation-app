@@ -1,9 +1,13 @@
+
 import Link from "next/link";
 import { Suspense} from "react";
 import { AuthButton } from "@/components/auth-button";
 import HamburgerMenu from "./HamburgerMenu";
 
+ 
+
 const HeaderAuth = () => {
+
 
   return (
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16 bg-white">
@@ -13,7 +17,7 @@ const HeaderAuth = () => {
            </Suspense>
             <div><Link href={"/"}>Logo</Link></div>  
               <Suspense>
-                <AuthButton />
+                <AuthButton/>
               </Suspense>
           </div>
         </nav> 

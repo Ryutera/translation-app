@@ -44,11 +44,11 @@ const HamburgerMenu = async () => {
 
 
       <SheetContent>
-        <div className="flex flex-col justify-between h-full ">
+        <div className="flex flex-col justify-between h-full sm:pt-[25%] sm:pt-[30%]">
 
-          <div className="flex justify-between items-center gap-6 px-4 mt-[20%]  text-right">
+          <div className="flex justify-between items-center gap-6 px-4   text-right">
             {userId && 
-            <AccountInfo userId={userId} ifPremium={ifPremium}  email={email}/>}
+            <AccountInfo userId={userId}  email={email}/>}
             <LangSelector />
           </div>
 

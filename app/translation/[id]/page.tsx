@@ -1,6 +1,4 @@
 
-
-import HeaderAuth from "@/components/HeaderAuth"
 import prisma from "@/lib/prisma"
 
 
@@ -21,7 +19,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     return (
         <>
-       <HeaderAuth/>
+  
        <div className="flex flex-col gap-8 w-[70%] h-screen mx-auto items-center justify-center">
          
 

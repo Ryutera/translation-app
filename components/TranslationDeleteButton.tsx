@@ -23,8 +23,12 @@ const TranslationDeleteButton = ({ id }: { id: string }) => {
 
   const handleDelete = async () => {
 
-      await deleteTranslationHistory(id)
-      router.refresh()
+      const result = await deleteTranslationHistory(id)
+      if (result.success) {
+        router.refresh()
+      }else{
+        alert("failed to delete transaction history")
+      }
     
   }
 

@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createUser } from "@/app/action";
 
+
 export function LoginForm({
   className,
   ...props
@@ -51,8 +52,10 @@ export function LoginForm({
     await createUser(userauthId!)
 }
 
+     
+     router.push("/");
+   
       
-      router.push("/");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

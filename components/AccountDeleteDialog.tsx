@@ -27,9 +27,14 @@ const AccountDeleteDialog = ({userId}:Props) => {
     const router = useRouter()
 
     const handleDelete =async()=>{
-        await deleteAccount(userId)
-        
-        window.location.reload()
+        const result = await deleteAccount(userId)
+        if (result?.success) {
+          // deletion succeeded
+          window.location.reload()
+        } else {
+          // show error to user (could be replaced with UI toast)
+          alert(`Failed to delete account`)
+        }
     }
 
   return (

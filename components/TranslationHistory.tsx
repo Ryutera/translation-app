@@ -2,6 +2,7 @@
 import { getTranslationHistory } from "@/app/action"
 import Link from "next/link"
 import TranslationDeleteButton from "./TranslationDeleteButton"
+import TranslationHistoryNavigation from "./TranslationHistoryNavigation"
 
 interface Props {
   userId?: string | undefined
@@ -17,12 +18,7 @@ const TranslationHistory = async ({ userId }: Props) => {
       key={translation.id}
       className="flex w-full justify-between h-10 px-10 items-center hover:bg-gray-50"
     >
-      <Link
-        href={`/translation/${translation.id}`}
-        className=" whitespace-nowrap overflow-hidden text-ellipsis"
-      >
-        {translation.sourceText}
-      </Link>
+     <TranslationHistoryNavigation text={translation.sourceText} id={translation.id}/>
 
       <TranslationDeleteButton id={translation.id} />
     </div>

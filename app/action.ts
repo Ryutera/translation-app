@@ -5,13 +5,13 @@ import getUserId from "@/lib/supabase/getUserId";
 import { createClient } from "@supabase/supabase-js";
 import OpenAI from "openai";
 
-export const generateTranslation = async(input:string)=>{
- 
-const openai = new OpenAI();
+export const generateTranslation = async (input: string) => {
 
-const response = await openai.responses.create({
-    model: "gpt-4.1",
-    instructions:` 
+    const openai = new OpenAI();
+
+    const response = await openai.responses.create({
+        model: "gpt-4.1",
+        instructions: ` 
 
  You serve the role of converting input words into casual Japanese expressions for Japanese language learners.
 
@@ -58,75 +58,75 @@ Always return ONLY valid JSON. No text before or after.
 
 
     `,
-    temperature: 0.1,
-    input: input
-});
+        temperature: 0.1,
+        input: input
+    });
 
-console.log(response)
+    console.log(response)
 
-//ログイン時には翻訳結果をデータベースに追加
-const userId = await getUserId()
+    //ログイン時には翻訳結果をデータベースに追加
+    const userId = await getUserId()
 
-if (userId) {
-    try{
-  await prisma.translation.create({
-        data:{
-           
-            userId:userId,
-            sourceText:input,
-            output:response.output_text,
-           
+    if (userId) {
+        try {
+            await prisma.translation.create({
+                data: {
+
+                    userId: userId,
+                    sourceText: input,
+                    output: response.output_text,
+
+                }
+            })
+        } catch (err) {
+            console.log(err)
         }
-    })
-    }catch(err){
-        console.log(err)
-    }  
-}
+    }
 
 
-return response.output_text
+    return response.output_text
 }
 
 //(アカウントがない場合に)ユーザー登録
-export async function createUser (id:string){
-   
-  const hasAccount =  await prisma.user.findUnique({
-        where:{
-            authUserId:id
+export async function createUser(id: string) {
+
+    const hasAccount = await prisma.user.findUnique({
+        where: {
+            authUserId: id
         }
     })
     hasAccount || await prisma.user.create({
-    data:{
-        authUserId:id
-    }
-})
+        data: {
+            authUserId: id
+        }
+    })
 
 }
 
 
 //ログインユーザーが24時間以内に利用した回数
-export async function checkQuotaToday(userId: string){
-const since = new Date(Date.now() -24 * 60 *60 * 1000 )
-const used = await prisma.translation.count({
-    where:{
-        userId:userId,
-        createdAt:{
-            gte:since
+export async function checkQuotaToday(userId: string) {
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000)
+    const used = await prisma.translation.count({
+        where: {
+            userId: userId,
+            createdAt: {
+                gte: since
+            }
         }
-    }
-})
+    })
 
-return used
-    
+    return used
+
 }
 
 
-export async function getTranslationHistory(userId:string){
-   
+export async function getTranslationHistory(userId: string) {
+
     const translations = await prisma.translation.findMany({
-        where:{
-            userId:userId,
-            isHidden:false
+        where: {
+            userId: userId,
+            isHidden: false
         }
     }
     )
@@ -135,34 +135,36 @@ export async function getTranslationHistory(userId:string){
 }
 
 
-export async function deleteTranslationHistory(id:string){
-    await prisma.translation.update({
-  where:{
-    id:id
-  },
-  data:
-    {isHidden:true }
-  
-    })
+export async function deleteTranslationHistory(id: string) {
+    try {
+        await prisma.translation.update({
+            where: {id: id},
+            data:{ isHidden: true }})
+
+            return { success: true }
+    } catch (error) {
+            console.error(error)
+            return { success: false }
+    }
 
 }
 
 
-//課金しているかどうか
+
 
 
 //課金ユーザーかどうかの判定
 
-export async function checkIfPremium (userId:string){
+export async function checkIfPremium(userId: string) {
     const user = await prisma.user.findFirst({
-        where:{
-            authUserId:userId
+        where: {
+            authUserId: userId
         }
     })
 
-     if (!user) return false
+    if (!user) return false
 
-    const isPremium = user?.plan!=="FREE"
+    const isPremium = user?.plan !== "FREE"
     return isPremium
 
 }
@@ -170,10 +172,11 @@ export async function checkIfPremium (userId:string){
 
 
 //ユーザー情報の取得
-export async function getUserWithId (userId:string){
+export async function getUserWithId(userId: string) {
+
     const userData = await prisma.user.findUnique({
-        where:{
-            authUserId:userId
+        where: {
+            authUserId: userId
         }
     })
 
@@ -184,22 +187,35 @@ export async function getUserWithId (userId:string){
 
 //ユーザーの削除
 
-export async function deleteAccount(userId:string){
-       
-const supabase = createClient(process.env.SUPABASE_URL!,process.env.SUPABASE_SERVICE_ROLE!, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false
-  }
-})
+export async function deleteAccount(userId: string) {
 
-    await prisma.user.delete({
-        where:{
-            authUserId:userId
+    const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE!, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false
         }
     })
 
-  await supabase.auth.admin.deleteUser(
-  userId
-)
+
+    try {
+        const { error: authError } = await supabase.auth.admin.deleteUser(userId)
+        if (authError) { throw new Error(`Auth delete failed: ${authError.message}`) }
+
+        await prisma.user.delete({
+            where: {
+                authUserId: userId
+            }
+        })
+
+        return { success: true }
+
+    } catch (error) {
+        console.error("deleteAccount failed", {
+            userId,
+            error,
+        })
+
+        return { success: false }
+    }
+
 }

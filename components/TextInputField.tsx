@@ -47,10 +47,14 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
             const data = await JSON.parse(res)
             setOutput(data as TranslationResult)
 
+             //履歴を即時表示するため
+            router.refresh()
+
         } catch (err) {
             return err
         } finally {
             setLoading(false)
+           
         }
     }
 

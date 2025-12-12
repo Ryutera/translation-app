@@ -4,53 +4,53 @@ import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 
-export async function POST (req:Request){
-    let event 
-     const body = await req.text(); 
-    const signature = req.headers.get("stripe-signature")!;
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+export async function POST(req: Request) {
+  let event
+  const body = await req.text();
+  const signature = req.headers.get("stripe-signature")!;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
-    try {
-      event = stripe.webhooks.constructEvent(
-        body,
-        signature,
-        webhookSecret
-      );
-    } catch (err) {
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      webhookSecret
+    );
+  } catch (err) {
     console.error("Webhook signature verification failed", err);
     return new NextResponse("Webhook Error", { status: 400 });
-    }
+  }
 
 
-    if (event.type === "checkout.session.completed") {
-       const session = event.data.object as any; // Stripe.Checkout.Session
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object as any; // Stripe.Checkout.Session
 
     const subscriptionId = session.subscription as string;
     const customerId = session.customer as string;
 
-       const subscription:any = await stripe.subscriptions.retrieve(subscriptionId);
+    const subscription: any = await stripe.subscriptions.retrieve(subscriptionId);
 
-      const item = subscription.items.data[0];
-      const endAt = item.current_period_end;
-      const plan = item.price.recurring.interval
-      
-       const userId = session.metadata.userId
+    const item = subscription.items.data[0];
+    const endAt = item.current_period_end;
+    const plan = item.price.recurring.interval
+
+    const userId = session.metadata.userId
 
 
-//課金ユーザー用のデータを追加
-       await prisma.user.update({
-        where:{
-          authUserId:userId
-        },data:{
-          stripeCustomerId:customerId,
-          plan:plan,
-          proUntil:new Date(endAt*1000)
-         
-        }
-       })
+    //課金ユーザー用のデータを追加
+    await prisma.user.update({
+      where: {
+        authUserId: userId
+      }, data: {
+        stripeCustomerId: customerId,
+        plan: plan,
+        proUntil: new Date(endAt * 1000)
 
-   
-    }
+      }
+    })
 
-    return new NextResponse("OK", { status: 200 });
+
+  }
+
+  return new NextResponse("OK", { status: 200 });
 }

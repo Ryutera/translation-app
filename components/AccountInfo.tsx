@@ -3,32 +3,25 @@ import { CircleUserRoundIcon } from 'lucide-react'
 
 import {
     Dialog,
-    DialogClose,
     DialogContent,
-    DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from './ui/dialog'
 import { getUserWithId } from '@/app/action'
-import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from './logout-button'
 import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'
 
 interface Props {
     userId: string
-    ifPremium: boolean | undefined
     email: string | undefined
 }
 
-const AccountInfo = async ({ userId, ifPremium, email }: Props) => {
+const AccountInfo = async ({ userId, email }: Props) => {
 
     const userData = await getUserWithId(userId)
-    const supabaseAdmin = createClient()
 
-    console.log(email, "メール")
 
     return (
         <Dialog>

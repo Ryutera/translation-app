@@ -1,16 +1,35 @@
+"use client"
+
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { createClient } from "@/lib/supabase/server";
 import { LogoutButton } from "./logout-button";
+import { createClient } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
 
+export function AuthButton() {
+ const [user,setUser] = useState<any>(null)
+ 
 
-export async function AuthButton() {
-  const supabase = await createClient();
-  // You can also use getUser() which will be slower.
-  const { data } = await supabase.auth.getClaims();
+ //ログイン状態に応じたボタンの即時更新のため
+ useEffect(()=>{
+   const supabase = createClient()
 
-  const user = data?.claims;
+    // 💡 認証状態の変化を監視するリスナーを設定
+   supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+          // ログインまたは初期セッション時
+          setUser(session?.user ?? null)
+        } else if (event === 'SIGNED_OUT') {
+          // ログアウト時
+          setUser(null)
+        }
+      }
+    )
+ },[])
 
+ 
+ 
   return user ? (
     <div className="flex items-center gap-4">
       <LogoutButton />
@@ -20,10 +39,8 @@ export async function AuthButton() {
       <Button asChild size="sm" variant={"outline"}>
         <Link href="/auth/login">Login</Link>
       </Button>
-      {/* <Button asChild size="sm" variant={"default"} className="bg-slate-400 hover:bg-slate-600 text-white">
-        <Link href="/auth/sign-up">Login</Link>
-      </Button> */}
       
     </div>
   );
 }
+

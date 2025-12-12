@@ -166,3 +166,27 @@ export async function checkIfPremium (userId:string){
 
 }
 
+
+
+//ユーザー情報の取得
+export async function getUserWithId (userId:string){
+    const userData = await prisma.user.findUnique({
+        where:{
+            authUserId:userId
+        }
+    })
+
+    return userData
+}
+
+
+
+//ユーザーの削除
+
+export async function deleteAccount(userId:string){
+    await prisma.user.delete({
+        where:{
+            authUserId:userId
+        }
+    })
+}

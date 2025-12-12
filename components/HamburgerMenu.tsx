@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/sheet"
 import { createClient } from "@/lib/supabase/server"
 
-import { Menu } from "lucide-react"
+import {Menu } from "lucide-react"
 import SubscriptionOption from "./SubscriptionOption"
 
 import Link from "next/link"
@@ -13,6 +13,8 @@ import LangSelector from "./LangSelector"
 import { DialogHeader } from "./ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
+import { checkIfPremium } from "@/app/action"
+import AccountInfo from "./AccountInfo"
 
 
 
@@ -21,8 +23,12 @@ const HamburgerMenu = async () => {
   const supabase = await createClient()
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
+  const email = user?.email
   const userId = user?.sub
-
+  let ifPremium
+  if (userId) {
+  ifPremium = await checkIfPremium(userId)
+  }
 
   return (
 
@@ -40,13 +46,15 @@ const HamburgerMenu = async () => {
       <SheetContent>
         <div className="flex flex-col justify-between h-full ">
 
-          <div className="flex justify-end  auto-rows-min gap-6 px-4 mt-[20%]  text-right">
+          <div className="flex justify-between items-center gap-6 px-4 mt-[20%]  text-right">
+            {userId && 
+            <AccountInfo userId={userId} ifPremium={ifPremium}  email={email}/>}
             <LangSelector />
           </div>
 
           <div className="h-full ">
 
-            {user ? <TranslationHistory userId={userId} /> :
+            {user ? <TranslationHistory userId={userId}/> :
               <div className="flex flex-col items-center justify-center h-[80%] mt-10 px-6 text-center">
                ログインするとここから翻訳履歴にアクセスできます
               </div>

@@ -11,6 +11,12 @@ import {
 import { Button } from './ui/button'
 import { deleteAccount } from '@/app/action'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@supabase/supabase-js'
+
+
+
+
+
 
 
 interface Props {
@@ -19,11 +25,11 @@ interface Props {
 
 const AccountDeleteDialog = ({userId}:Props) => {
     const router = useRouter()
+
     const handleDelete =async()=>{
         await deleteAccount(userId)
-        router.refresh()
-    
-
+        
+        window.location.reload()
     }
 
   return (

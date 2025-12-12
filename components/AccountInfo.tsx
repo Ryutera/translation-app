@@ -12,9 +12,7 @@ import {
     DialogTrigger,
 } from './ui/dialog'
 import { getUserWithId } from '@/app/action'
-import SubscriptionOption from './SubscriptionOption'
 import { createClient } from '@/lib/supabase/server'
-import Link from 'next/link'
 import { LogoutButton } from './logout-button'
 import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'

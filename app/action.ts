@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import getUserId from "@/lib/supabase/getUserId";
+import { createClient } from "@supabase/supabase-js";
 import OpenAI from "openai";
 
 export const generateTranslation = async(input:string)=>{
@@ -184,9 +185,21 @@ export async function getUserWithId (userId:string){
 //ユーザーの削除
 
 export async function deleteAccount(userId:string){
+       
+const supabase = createClient(process.env.SUPABASE_URL!,process.env.SUPABASE_SERVICE_ROLE!, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+})
+
     await prisma.user.delete({
         where:{
             authUserId:userId
         }
     })
+
+  await supabase.auth.admin.deleteUser(
+  userId
+)
 }

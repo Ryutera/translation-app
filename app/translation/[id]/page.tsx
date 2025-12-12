@@ -1,4 +1,4 @@
-"use cache"
+
 
 import HeaderAuth from "@/components/HeaderAuth"
 import prisma from "@/lib/prisma"
@@ -21,9 +21,11 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     return (
         <>
+       <HeaderAuth/>
        <div className="flex flex-col gap-8 w-[70%] h-screen mx-auto items-center justify-center">
+         
 
- {/* もとの入力 */}
+ {/* 元の入力 */}
   <div className="w-full bg-white p-6 rounded-2xl shadow-md border border-red-200">
     <h2 className="text-red-500 font-bold text-lg mb-2">Source Input</h2>
     <p className="text-gray-800 leading-relaxed">{sourceText}</p>

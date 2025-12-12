@@ -33,12 +33,11 @@ export async function POST (req:Request){
       const item = subscription.items.data[0];
       const endAt = item.current_period_end;
       const plan = item.price.recurring.interval
-      console.log(plan,"プラン")
       
        const userId = session.metadata.userId
 
 
-
+//課金ユーザー用のデータを追加
        await prisma.user.update({
         where:{
           authUserId:userId
@@ -49,8 +48,6 @@ export async function POST (req:Request){
          
         }
        })
-
- console.log(subscription,"サブスク")
 
    
     }

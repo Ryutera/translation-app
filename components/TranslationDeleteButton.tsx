@@ -15,6 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog"
+import { Trash } from "lucide-react"
 
 
 const TranslationDeleteButton = ({ id }: { id: string }) => {
@@ -31,7 +32,7 @@ const TranslationDeleteButton = ({ id }: { id: string }) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
        
-          <button className="z-10 h-full  px-3" >...</button>
+          <button className="z-10 h-full  px-3" ><Trash className="h-4 w-4 text-gray-500"/></button>
         
       </AlertDialogTrigger>
       <AlertDialogContent>

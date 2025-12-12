@@ -1,5 +1,5 @@
 
-import { deleteTranslationHistory, getTranslationHistory } from "@/app/action"
+import { getTranslationHistory } from "@/app/action"
 import Link from "next/link"
 import TranslationDeleteButton from "./TranslationDeleteButton"
 
@@ -15,11 +15,11 @@ const TranslationHistory = async ({ userId }: Props) => {
   {translations.map((translation) => (
     <div
       key={translation.id}
-      className="flex w-full justify-between  h-10 px-10 items-center hover:bg-gray-50"
+      className="flex w-full justify-between h-10 px-10 items-center hover:bg-gray-50"
     >
       <Link
         href={`/translation/${translation.id}`}
-        className="flex-1 hover:underline"
+        className=" whitespace-nowrap overflow-hidden text-ellipsis"
       >
         {translation.sourceText}
       </Link>

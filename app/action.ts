@@ -145,3 +145,24 @@ export async function deleteTranslationHistory(id:string){
     })
 
 }
+
+
+//課金しているかどうか
+
+
+//課金ユーザーかどうかの判定
+
+export async function checkIfPremium (userId:string){
+    const user = await prisma.user.findFirst({
+        where:{
+            authUserId:userId
+        }
+    })
+
+     if (!user) return false
+
+    const isPremium = user?.plan!=="FREE"
+    return isPremium
+
+}
+

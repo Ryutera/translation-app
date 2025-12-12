@@ -27,8 +27,9 @@ export type TranslationResult = TranslationResultOk | TranslationResultInvalid;
 
 interface Props {
     userId?: string
+     ifPremium?:boolean
 }
-const TextInputField = ({ userId }: Props) => {
+const TextInputField = ({ userId, ifPremium }: Props) => {
     const [inputText, setInputText] = useState("")
     const [loading, setLoading] = useState(false)
     const [output, setOutput] = useState<TranslationResult | null>(null)
@@ -57,7 +58,9 @@ const TextInputField = ({ userId }: Props) => {
     return (
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
-            {userId ?
+            {ifPremium? 
+            <></>
+            : userId ?
                 //無料ログインユーザー
                 isLimitReached?  <p className="text-sm">本日の利用制限に達しました</p> : <p>ログインユーザー 利用回数{remaining}/10</p>
                 :
@@ -78,7 +81,11 @@ const TextInputField = ({ userId }: Props) => {
                 <RecordButton />
 
             </div>
-            {isLimitReached 
+
+            {ifPremium? 
+            <button onClick={getTranslationData} disabled={!inputText} className={`${ inputText  ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>
+            : 
+            isLimitReached 
             ?
             <button onClick={()=>router.push("/auth/sign-up")} className="bg-red-300 cursor-pointer  md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none">ログインして利用回数を増やす</button>
             :

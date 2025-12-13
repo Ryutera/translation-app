@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import getUserId from "@/lib/supabase/getUserId";
 import { createClient } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 import OpenAI from "openai";
 
 export const generateTranslation = async (input: string) => {
@@ -121,17 +122,27 @@ export async function checkQuotaToday(userId: string) {
 }
 
 
-export async function getTranslationHistory(userId: string) {
+export async function getTranslationHistory() {
 
-    const translations = await prisma.translation.findMany({
+    const userId = await getUserId()
+    if (!userId) {
+        return { data: null, error: "Authentication required." 
+        }}
+
+        try {
+             const translations = await prisma.translation.findMany({
         where: {
             userId: userId,
             isHidden: false
+        }})
+        return { data: translations }
+        } catch (error) {
+            console.error("Database Error in getTranslationHistory:")
+            return { data: null, error: "Failed to fetch translation history." }
         }
-    }
-    )
+   
 
-    return translations
+    
 }
 
 
@@ -187,7 +198,9 @@ export async function getUserWithId(userId: string) {
 
 //ユーザーの削除
 
-export async function deleteAccount(userId: string) {
+export async function deleteAccount() {
+
+
 
     const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE!, {
         auth: {
@@ -196,8 +209,13 @@ export async function deleteAccount(userId: string) {
         }
     })
 
+     const userId = await getUserId()
+    if (!userId) {
+         return { data: null, error: "Authentication required." }
+    }
 
     try {
+
         const { error: authError } = await supabase.auth.admin.deleteUser(userId)
         if (authError) { throw new Error(`Auth delete failed: ${authError.message}`) }
 
@@ -207,6 +225,8 @@ export async function deleteAccount(userId: string) {
             }
         })
 
+        // ログインの状態をuseAuthStoreに残さないため
+        revalidatePath("/")
         return { success: true }
 
     } catch (error) {

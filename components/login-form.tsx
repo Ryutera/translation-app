@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createUser } from "@/app/action";
+import { createClient } from "@/lib/supabase/client";
+
 
 
 export function LoginForm({
@@ -28,12 +30,14 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+
   const handleLogin = async (e: React.FormEvent) => {
+  
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
-  
+
 
 
     try {
@@ -51,14 +55,15 @@ export function LoginForm({
   //ユーザー登録
     await createUser(userauthId!)
 }
-
      
+   
      router.push("/");
    
       
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
+      
       setIsLoading(false);
     }
   };

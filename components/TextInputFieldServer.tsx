@@ -8,8 +8,6 @@ const   TextInputFieldServer = async() => {
 
     const userId = await getUserId()
 
-
-
     let ifPremium
     if (userId) {
        ifPremium = await checkIfPremium(userId)

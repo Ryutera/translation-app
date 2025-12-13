@@ -8,20 +8,17 @@ import {
     DialogTitle,
     DialogTrigger,
 } from './ui/dialog'
-import { getUserWithId } from '@/app/action'
 import { LogoutButton } from './logout-button'
 import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'
 
 interface Props {
-    userId: string
     email: string | undefined
 }
 
-const AccountInfo = async ({ userId, email }: Props) => {
+const AccountInfo =  ({ email }: Props) => {
 
-    const userData = await getUserWithId(userId)
-
+   
 
     return (
         <Dialog>
@@ -42,7 +39,7 @@ const AccountInfo = async ({ userId, email }: Props) => {
                         </div>
                         <div className='flex flex-row justify-center justify-between items-center mt-3'>
                             <p >Plan</p>
-                            <p>{userData?.plan}</p>
+                            {/* <p>{userData?.plan}</p> */}
                         </div>
                     </DialogHeader>
 
@@ -63,7 +60,7 @@ const AccountInfo = async ({ userId, email }: Props) => {
                                 <DialogTrigger asChild>
                                     <Button className='font-semibold bg-red-300 hover:bg-red-200'>アカウント削除</Button>
                                 </DialogTrigger>
-                                <AccountDeleteDialog userId={userId} />
+                                <AccountDeleteDialog/>
                             </Dialog>
                         </div>
                     </div>

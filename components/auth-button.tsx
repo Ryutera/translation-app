@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { LogoutButton } from "./logout-button";
-import { useLoginStatus } from "@/lib/store/useLoginStatus";
+import { useAuthStore } from "@/lib/store/useAuthStore";
+
 
 export function AuthButton() {
- const loginStatus = useLoginStatus((state)=>state.loginStatus)
- 
+const user = useAuthStore((state)=>state.user)
+console.log(user,"ユーザ")
 
 //  //ログイン状態に応じたボタンの即時更新のため
 //  useEffect(()=>{
@@ -29,7 +30,7 @@ export function AuthButton() {
 
  
  
-  return loginStatus ? (
+  return user? (
     <div className="flex items-center gap-4">
       <LogoutButton />
     </div>

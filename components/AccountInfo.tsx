@@ -24,8 +24,6 @@ const AccountInfo =  ({ userId, email }: Props) => {
         return
     }
 
-
-
     return (
         <Dialog>
             <form>

@@ -4,17 +4,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { createClient } from "@/lib/supabase/server"
-
 import { Menu } from "lucide-react"
 import SubscriptionOption from "./SubscriptionOption"
-
-import Link from "next/link"
-import LangSelector from "./LangSelector"
 import { DialogHeader } from "./ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
 import { checkIfPremium } from "@/app/action"
-import AccountInfo from "./AccountInfo"
 import HamburgerHeader from "./HamburgerHeader"
 
 const HamburgerMenu = async () => {

@@ -5,15 +5,17 @@ import {
   DialogTrigger,
 } from "./ui/dialog"
 import PremiumOptionDialog from './PremiumOptionDialog'
-import { useLoginStatus } from "@/lib/store/useLoginStatus"
 import Link from "next/link"
+import { useAuthStore } from "@/lib/store/useAuthStore"
 
 
 const SubscriptionOption = () => {
-  const loginStatus = useLoginStatus((state) => state.loginStatus)
+ const user = useAuthStore((state)=>state.user)
+
+ 
   return (
 
-    loginStatus ?
+    user?
       <Dialog>
         < DialogTrigger asChild >
           <button className="mb-14 bg-red-300 w-[80%] mx-auto h-16 rounded-2xl text-white text-lg font-semibold hover:bg-red-400">

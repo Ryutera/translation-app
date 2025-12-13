@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import HeaderAuth from "@/components/HeaderAuth";
 import { Suspense } from "react";
+import RootAuthProvider from "@/components/RootAuthProvider";
 
 
 
@@ -37,10 +38,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          
+          <RootAuthProvider>
       <Suspense><HeaderAuth/></Suspense>
-          
           {children}
+          </RootAuthProvider>
         </ThemeProvider>
       </body>
     </html>

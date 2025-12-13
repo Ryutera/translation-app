@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,7 +16,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createUser } from "@/app/action";
-import { useLoginStatus } from "@/lib/store/useLoginStatus";
+import { createClient } from "@/lib/supabase/client";
+
 
 
 export function LoginForm({
@@ -28,8 +29,7 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const setToLogin = useLoginStatus((state)=>state.setToLogin)
-  const loginStatus = useLoginStatus((state)=>state.loginStatus)
+
 
   const handleLogin = async (e: React.FormEvent) => {
   
@@ -38,7 +38,7 @@ export function LoginForm({
     setIsLoading(true);
     setError(null);
 
-    console.log(loginStatus,"ログ")
+
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -56,9 +56,7 @@ export function LoginForm({
     await createUser(userauthId!)
 }
      
-setToLogin()
-
-
+   
      router.push("/");
    
       

@@ -4,7 +4,8 @@ import { getTranslationHistory } from "@/app/action"
 import TranslationDeleteButton from "./TranslationDeleteButton"
 import TranslationHistoryNavigation from "./TranslationHistoryNavigation"
 import { useEffect, useState } from "react"
-import { useLoginStatus } from "@/lib/store/useLoginStatus"
+import { createClient } from "@/lib/supabase/client"
+
 
 interface Props {
   userId?: string | undefined
@@ -12,20 +13,22 @@ interface Props {
 
 const TranslationHistory = ({ userId }: Props) => {
   const [translations, setTranslations] = useState<any[]>([])
-  const loginStatus = useLoginStatus((state) => state.loginStatus)
   
-   useEffect(()=>{
-    const getData = async()=>{
-   const data = await getTranslationHistory(userId!)
-    setTranslations(data)
-    }
-  getData()
-   },[])
+  
+  let data
+  useEffect(()=>{
 
+    const init = async()=>{
+const supabase = createClient()
+ data = await supabase.auth.getSession()
+ console.log(data,"データ")
+    }
+
+  },[])
 
   return (
     <div className="h-full ">
-      {loginStatus
+      {data
         ?
         <div className="flex flex-col h-[80%] overflow-y-scroll gap-3  mt-12">
           {translations.map((translation) => (

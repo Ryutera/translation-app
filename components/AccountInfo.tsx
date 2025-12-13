@@ -8,21 +8,17 @@ import {
     DialogTitle,
     DialogTrigger,
 } from './ui/dialog'
-import { getUserWithId } from '@/app/action'
 import { LogoutButton } from './logout-button'
 import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'
 
 interface Props {
-    userId: string | undefined
     email: string | undefined
 }
 
-const AccountInfo =  ({ userId, email }: Props) => {
+const AccountInfo =  ({ email }: Props) => {
 
-    if (!userId) {
-        return
-    }
+   
 
     return (
         <Dialog>
@@ -64,7 +60,7 @@ const AccountInfo =  ({ userId, email }: Props) => {
                                 <DialogTrigger asChild>
                                     <Button className='font-semibold bg-red-300 hover:bg-red-200'>アカウント削除</Button>
                                 </DialogTrigger>
-                                <AccountDeleteDialog userId={userId} />
+                                <AccountDeleteDialog/>
                             </Dialog>
                         </div>
                     </div>

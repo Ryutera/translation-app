@@ -14,20 +14,11 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 
 
-
-
-
-
-
-interface Props {
-    userId:string
-}
-
-const AccountDeleteDialog = ({userId}:Props) => {
+const AccountDeleteDialog = () => {
     const router = useRouter()
 
     const handleDelete =async()=>{
-        const result = await deleteAccount(userId)
+        const result = await deleteAccount()
         if (result?.success) {
           // deletion succeeded
           window.location.reload()

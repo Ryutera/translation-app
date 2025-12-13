@@ -40,8 +40,8 @@ const HamburgerMenu = async () => {
       <SheetContent>
         <div className="flex flex-col justify-between h-full sm:pt-[25%] sm:pt-[30%]">
 
-          <HamburgerHeader userId={userId} email={email}/>
-          <TranslationHistory userId={userId} />
+          <HamburgerHeader/>
+          <TranslationHistory/>
           <SubscriptionOption />
             
 

@@ -1,34 +1,42 @@
 
 "use client"
-import { getTranslationHistory } from "@/app/action"
+import { useEffect, useState } from "react"
 import TranslationDeleteButton from "./TranslationDeleteButton"
 import TranslationHistoryNavigation from "./TranslationHistoryNavigation"
-import { useEffect, useState } from "react"
-import { createClient } from "@/lib/supabase/client"
+import { useAuthStore } from "@/lib/store/useAuthStore"
+import { getTranslationHistory } from "@/app/action"
 
 
-interface Props {
-  userId?: string | undefined
-}
 
-const TranslationHistory = ({ userId }: Props) => {
+
+const TranslationHistory = () => {
+  const user = useAuthStore((state) => state.user)
   const [translations, setTranslations] = useState<any[]>([])
-  
-  
-  let data
-  useEffect(()=>{
 
-    const init = async()=>{
-const supabase = createClient()
- data = await supabase.auth.getSession()
- console.log(data,"データ")
+  useEffect(() => {
+    const init = async () => {
+
+      try {
+        const res = await getTranslationHistory()
+
+
+        if (res.error) {
+          console.log(res.error)
+        } else if (res.data) {
+          setTranslations(res.data)
+        }
+
+
+      } catch (error) {
+        console.error(error)
+      }
     }
-
-  },[])
+    init()
+  }, [])
 
   return (
     <div className="h-full ">
-      {data
+      {user
         ?
         <div className="flex flex-col h-[80%] overflow-y-scroll gap-3  mt-12">
           {translations.map((translation) => (

@@ -1,4 +1,5 @@
 
+"use client"
 import { CircleUserRoundIcon } from 'lucide-react'
 
 import {
@@ -11,14 +12,23 @@ import {
 import { LogoutButton } from './logout-button'
 import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'
+import { checkPlan } from '@/app/action'
+import { useEffect, useState } from 'react'
 
 interface Props {
     email: string | undefined
 }
 
 const AccountInfo =  ({ email }: Props) => {
-
+const [plan, setPlan] = useState<string>()
    
+ useEffect(()=>{
+    const init =async ()=>{
+       const res = await checkPlan()
+       setPlan(res)
+    }
+    init()
+ },[])
 
     return (
         <Dialog>
@@ -39,7 +49,7 @@ const AccountInfo =  ({ email }: Props) => {
                         </div>
                         <div className='flex flex-row justify-center justify-between items-center mt-3'>
                             <p >Plan</p>
-                            {/* <p>{userData?.plan}</p> */}
+                            <p>{plan}</p>
                         </div>
                     </DialogHeader>
 

@@ -3,7 +3,6 @@
 
 import { deleteTranslationHistory } from "@/app/action"
 import { useRouter } from "next/navigation"
-import { Button } from "./ui/button"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,8 +16,12 @@ import {
 } from "./ui/alert-dialog"
 import { Trash } from "lucide-react"
 
+interface Props{
+  id:string
+}
 
-const TranslationDeleteButton = ({ id }: { id: string }) => {
+
+const TranslationDeleteButton = ({ id }: Props ) => {
   const router = useRouter()
 
   const handleDelete = async () => {

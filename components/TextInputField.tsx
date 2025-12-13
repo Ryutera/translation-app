@@ -31,7 +31,7 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
     const [inputText, setInputText] = useState("")
     const [loading, setLoading] = useState(false)
     const [output, setOutput] = useState<TranslationResult | null>(null)
-    const { decreaseCount, remaining ,isLimitReached} = useQuota(userId)
+    const { decreaseCount, remaining ,isLimitReached} = useQuota()
     const router = useRouter()
 
 
@@ -83,9 +83,9 @@ return (<button onClick={()=>router.push("/auth/sign-up")} className="bg-red-300
                 //非ログインユーザー
                 isLimitReached ? <p className="text-sm">利用制限に達しました</p>:<p className="text-sm">無料翻訳　{remaining}/3</p>
                 }
-{/* 
+
             <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(3))}>reset</button>
-        <button onClick={()=>checkQuotaToday(userId!)}>アクション</button> */}
+        {/* <button onClick={()=>checkQuotaToday(userId!)}>アクション</button> */}
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <textarea placeholder="好きな言語で入力..." className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />

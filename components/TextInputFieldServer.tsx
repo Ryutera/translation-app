@@ -1,6 +1,7 @@
 
 
-import { checkIfPremium } from '@/app/action'
+
+import { checkPlan } from '@/app/action'
 import TextInputField from './TextInputField'
 import getUserId from '@/lib/supabase/getUserId'
 
@@ -10,12 +11,13 @@ const   TextInputFieldServer = async() => {
 
     let ifPremium
     if (userId) {
-       ifPremium = await checkIfPremium(userId)
+       const res  = await checkPlan()
+       ifPremium = res!== "FREE"
     }
    
   return (
     <>
-    <TextInputField userId={userId}   ifPremium={ifPremium}/>
+    <TextInputField userId={userId}  ifPremium={ifPremium}/>
     </>
   )
 }

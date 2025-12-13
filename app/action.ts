@@ -151,7 +151,6 @@ export async function deleteTranslationHistory(id: string) {
         await prisma.translation.update({
             where: {id: id},
             data:{ isHidden: true }})
-
             return { success: true }
     } catch (error) {
             console.error(error)
@@ -166,17 +165,19 @@ export async function deleteTranslationHistory(id: string) {
 
 //課金ユーザーかどうかの判定
 
-export async function checkIfPremium(userId: string) {
+export async function checkPlan() {
+    const userId = await getUserId()
+
     const user = await prisma.user.findFirst({
         where: {
             authUserId: userId
         }
     })
 
-    if (!user) return false
+    if (!user) return 
 
-    const isPremium = user?.plan !== "FREE"
-    return isPremium
+   return   user?.plan 
+
 
 }
 
@@ -239,3 +240,5 @@ export async function deleteAccount() {
     }
 
 }
+
+

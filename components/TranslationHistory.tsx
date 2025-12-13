@@ -1,52 +1,41 @@
 
-"use client"
-import { useEffect, useState } from "react"
+
 import TranslationDeleteButton from "./TranslationDeleteButton"
 import TranslationHistoryNavigation from "./TranslationHistoryNavigation"
-import { useAuthStore } from "@/lib/store/useAuthStore"
 import { getTranslationHistory } from "@/app/action"
 
 
 
 
-const TranslationHistory = () => {
-  const user = useAuthStore((state) => state.user)
-  const [translations, setTranslations] = useState<any[]>([])
 
-  useEffect(() => {
-    const init = async () => {
+const TranslationHistory = async() => {
 
-      try {
-        const res = await getTranslationHistory()
-
-
-        if (res.error) {
-          console.log(res.error)
-        } else if (res.data) {
-          setTranslations(res.data)
-        }
-
-
-      } catch (error) {
-        console.error(error)
-      }
+  let  translations
+  try {
+    const res  = await getTranslationHistory()
+    if (res.error) {
+      console.log(res.error)
     }
-    init()
-  }, [])
+  translations = res.data
+  } catch (error) {
+    console.log(error)
+  }
+
+
 
   return (
     <div className="h-full ">
-      {user
+      {translations
         ?
         <div className="flex flex-col h-[80%] overflow-y-scroll gap-3  mt-12">
-          {translations.map((translation) => (
+          {translations?.map((translation:any) => (
             <div
               key={translation.id}
               className="flex w-full justify-between h-10 px-10 items-center hover:bg-gray-50"
             >
               <TranslationHistoryNavigation text={translation.sourceText} id={translation.id} />
 
-              <TranslationDeleteButton id={translation.id} />
+              <TranslationDeleteButton id={translation.id}/>
             </div>
           ))}
         </div>

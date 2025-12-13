@@ -15,9 +15,7 @@ import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
 import { checkIfPremium } from "@/app/action"
 import AccountInfo from "./AccountInfo"
-import { Suspense } from "react"
-
-
+import HamburgerHeader from "./HamburgerHeader"
 
 const HamburgerMenu = async () => {
 
@@ -47,34 +45,10 @@ const HamburgerMenu = async () => {
       <SheetContent>
         <div className="flex flex-col justify-between h-full sm:pt-[25%] sm:pt-[30%]">
 
-          <div className="flex justify-between items-center gap-6 px-4  ">
-            {userId &&
-              <AccountInfo userId={userId} email={email} />}
-            <LangSelector />
-          </div>
-
-          <div className="h-full ">
-
-            {user ?
-              <TranslationHistory userId={userId} />
-              :
-              <div className="flex flex-col items-center justify-center h-[80%] mt-10 px-6 text-center">
-                ログインするとここから翻訳履歴にアクセスできます
-              </div>
-            }
-
-
-          </div>
-
-          {user ?
-            <SubscriptionOption />
-            :
-            <div className="px-4 mb-14">
-              <Link href="/auth/sign-up">
-                <button className="bg-red-300 w-full h-12 rounded-2xl text-white text-lg hover:bg-red-400 mb-[10%]">無料登録</button>
-              </Link>
-            </div>
-          }
+          <HamburgerHeader userId={userId} email={email}/>
+          <TranslationHistory userId={userId} />
+          <SubscriptionOption />
+            
 
         </div>
       </SheetContent>

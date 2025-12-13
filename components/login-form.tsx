@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createUser } from "@/app/action";
+import { useLoginStatus } from "@/lib/store/useLoginStatus";
 
 
 export function LoginForm({
@@ -27,14 +28,17 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const setToLogin = useLoginStatus((state)=>state.setToLogin)
+  const loginStatus = useLoginStatus((state)=>state.loginStatus)
 
   const handleLogin = async (e: React.FormEvent) => {
+  
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
-  
 
+    console.log(loginStatus,"ログ")
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -51,8 +55,10 @@ export function LoginForm({
   //ユーザー登録
     await createUser(userauthId!)
 }
-
      
+setToLogin()
+
+
      router.push("/");
    
       

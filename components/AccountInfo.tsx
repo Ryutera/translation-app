@@ -14,13 +14,16 @@ import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'
 
 interface Props {
-    userId: string
+    userId: string | undefined
     email: string | undefined
 }
 
-const AccountInfo = async ({ userId, email }: Props) => {
+const AccountInfo =  ({ userId, email }: Props) => {
 
-    const userData = await getUserWithId(userId)
+    if (!userId) {
+        return
+    }
+
 
 
     return (
@@ -42,7 +45,7 @@ const AccountInfo = async ({ userId, email }: Props) => {
                         </div>
                         <div className='flex flex-row justify-center justify-between items-center mt-3'>
                             <p >Plan</p>
-                            <p>{userData?.plan}</p>
+                            {/* <p>{userData?.plan}</p> */}
                         </div>
                     </DialogHeader>
 

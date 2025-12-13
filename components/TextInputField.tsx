@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 
 
 
+
+
 type TranslationResultOk = {
     status: "ok";
     detectedLang: string;
@@ -35,6 +37,7 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
     const [output, setOutput] = useState<TranslationResult | null>(null)
     const { decreaseCount, remaining ,isLimitReached} = useQuota(userId)
     const router = useRouter()
+
 
 
     const getTranslationData = async () => {

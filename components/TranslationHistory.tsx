@@ -1,26 +1,22 @@
 
 
+import { getTranslationHistory } from "@/app/action"
 import TranslationDeleteButton from "./TranslationDeleteButton"
 import TranslationHistoryNavigation from "./TranslationHistoryNavigation"
-import { getTranslationHistory } from "@/app/action"
-
-
-
 
 
 const TranslationHistory = async() => {
-
-  let  translations
-  try {
-    const res  = await getTranslationHistory()
-    if (res.error) {
-      console.log(res.error)
-    }
-  translations = res.data
-  } catch (error) {
-    console.log(error)
-  }
-
+let translations
+try {
+   const res = await getTranslationHistory()
+   if (res.data===null) {
+    console.log(res.error)
+   }
+　translations = res.data
+ console.log(translations)
+} catch (error) {
+  console.error(error)
+}
 
 
   return (

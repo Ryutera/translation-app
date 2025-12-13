@@ -102,6 +102,8 @@ export async function createUser(id: string) {
         }
     })
 
+    revalidatePath("/")
+
 }
 
 
@@ -125,6 +127,7 @@ export async function checkQuotaToday(userId: string) {
 export async function getTranslationHistory() {
 
     const userId = await getUserId()
+
     if (!userId) {
         return { data: null, error: "Authentication required." 
         }}
@@ -135,6 +138,7 @@ export async function getTranslationHistory() {
             userId: userId,
             isHidden: false
         }})
+
         return { data: translations }
         } catch (error) {
             console.error("Database Error in getTranslationHistory:")
@@ -151,6 +155,7 @@ export async function deleteTranslationHistory(id: string) {
         await prisma.translation.update({
             where: {id: id},
             data:{ isHidden: true }})
+           
             return { success: true }
     } catch (error) {
             console.error(error)

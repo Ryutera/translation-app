@@ -6,10 +6,6 @@ import useQuota from "@/app/hooks/useQuota";
 import ResultView from "./ResultView";
 import { useRouter } from "next/navigation";
 
-
-
-
-
 type TranslationResultOk = {
     status: "ok";
     detectedLang: string;
@@ -61,6 +57,19 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
         }
     }
 
+    const renderTranslationButton =()=>{
+  if (ifPremium) {
+ return (<button onClick={getTranslationData} disabled={!inputText} className={`${ inputText  ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>)
+            }else if(userId&&!isLimitReached){
+ return (<button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText} className={`${ inputText  ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>)
+            }else if(userId&&isLimitReached){
+return (<button onClick={()=>router.push("/auth/sign-up")} className="bg-red-300 cursor-pointer  md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none">プレミアム登録をして利用回数を増やす</button>)
+            }else if (!userId&&!isLimitReached){
+ return (<button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText} className={`${ inputText  ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>)
+            }else if(!userId&&isLimitReached){
+ return (<button onClick={()=>router.push("/auth/sign-up")} className="bg-red-300 cursor-pointer  md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none">ログインして利用回数を増やす</button>)
+            }   
+    }
 
     return (
 
@@ -89,21 +98,14 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
 
             </div>
 
-            {ifPremium? 
-            <button onClick={getTranslationData} disabled={!inputText} className={`${ inputText  ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>
-            : 
-            isLimitReached 
-            ?
-            <button onClick={()=>router.push("/auth/sign-up")} className="bg-red-300 cursor-pointer  md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none">ログインして利用回数を増やす</button>
-            :
-            <button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText} className={`${ inputText  ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>翻訳 (ほんやく)</button>
-            
-            }
+        {renderTranslationButton()}
+
                 
             </div>
 
 
     )
 }
+
 
 export default TextInputField

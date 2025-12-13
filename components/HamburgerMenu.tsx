@@ -3,26 +3,15 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { createClient } from "@/lib/supabase/server"
 import { Menu } from "lucide-react"
 import SubscriptionOption from "./SubscriptionOption"
 import { DialogHeader } from "./ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
-import { checkIfPremium } from "@/app/action"
 import HamburgerHeader from "./HamburgerHeader"
 
 const HamburgerMenu = async () => {
 
-  const supabase = await createClient()
-  const { data } = await supabase.auth.getClaims();
-  const user = data?.claims;
-  const email = user?.email
-  const userId = user?.sub
-  let ifPremium
-  if (userId) {
-    ifPremium = await checkIfPremium(userId)
-  }
 
   return (
 

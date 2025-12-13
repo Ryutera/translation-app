@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import getUserId from "@/lib/supabase/getUserId";
 import { createClient } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 import OpenAI from "openai";
 
 export const generateTranslation = async (input: string) => {
@@ -224,6 +225,8 @@ export async function deleteAccount() {
             }
         })
 
+        // ログインの状態をuseAuthStoreに残さないため
+        revalidatePath("/")
         return { success: true }
 
     } catch (error) {

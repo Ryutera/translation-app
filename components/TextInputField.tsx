@@ -94,7 +94,7 @@ return (<button onClick={()=>router.push("/auth/sign-up")} className="bg-red-300
 
 
             <div className="flex flex-row">
-                <RecordButton />
+                <RecordButton setInputText={setInputText}/>
 
             </div>
 

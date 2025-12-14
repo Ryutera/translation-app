@@ -1,29 +1,40 @@
-import React, { useState } from "react";
-import { Mic, MicOff } from "lucide-react";
-import { useVoiceToText } from "react-speakup";
 
-const RecordButton = () => {
-    const [isRecording, setIsRecording] = useState(false)    
-  const { startListening, stopListening, transcript} = useVoiceToText({
-    continuous: true,
-    lang: "en-US",
-  });
+import React, { useEffect } from 'react';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 
+interface Props {
+setInputText:any
+}
+const Dictaphone = ({setInputText}:Props) => {
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
+
+
+  
+
+useEffect(()=>{setInputText(transcript)},[transcript])
   return (
-    <div className="flex flex-col gap-6">
-      {" "}
-      <div className="flex gap-6">
-        <div onClick={()=>setIsRecording(prev=>!prev)} >
- {isRecording?  <MicOff onClick={stopListening} role="button" />: <Mic onClick={startListening} role="button" />   } 
-       
-        </div>
-   
-       
-      </div>
-      <h2>{transcript}</h2>
+    <div>
+      <p>Microphone: {listening ? 'on' : 'off'}</p>
+        <button type="button" onClick={()=>SpeechRecognition.startListening()}>
+        入力開始
+      </button>
+      <button type="button" onClick={() => {SpeechRecognition.stopListening()}}>
+        Stop
+      </button>
+      <button type="button" onClick={() => resetTranscript()}>
+        リセット
+      </button>
     </div>
   );
 };
-
-export default  RecordButton;
+export default Dictaphone;

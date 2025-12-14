@@ -84,7 +84,7 @@ return (<button onClick={()=>router.push("/auth/sign-up")} className="bg-red-300
                 isLimitReached ? <p className="text-sm">利用制限に達しました</p>:<p className="text-sm">無料翻訳　{remaining}/3</p>
                 }
 
-            <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(3))}>reset</button>
+            {/* <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(3))}>reset</button> */}
         {/* <button onClick={()=>checkQuotaToday(userId!)}>アクション</button> */}
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>

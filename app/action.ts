@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { stripe } from "@/lib/stripe";
 import getUserId from "@/lib/supabase/getUserId";
 import { createClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
@@ -243,3 +244,27 @@ export async function deleteAccount() {
 }
 
 
+
+
+export async function cancelSubscription(){
+    const userId = await  getUserId()
+    const user = await prisma.user.findUnique({
+        where:{
+            authUserId:userId
+        }
+    })
+
+    const stripeId = user?.stripeCustomerId
+    const res = await stripe.subscriptions.list({
+        customer:stripeId!
+    })
+
+    const subId = res?.data[0].id
+    console.log(subId,"サブid")
+
+   const subscription = await stripe.subscriptions.update(`${subId}`,{
+    cancel_at_period_end:true
+   });
+   
+   console.log(subscription,"解除")
+}

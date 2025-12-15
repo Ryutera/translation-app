@@ -12,7 +12,6 @@ async function handlePayment(){
       selectedPlan:selectedPlan
     })
 
-
   const url = res.data.url
 
    if (url) {

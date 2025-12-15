@@ -14,6 +14,8 @@ import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'
 import { checkPlan } from '@/app/action'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 interface Props {
     email: string | undefined
@@ -21,6 +23,8 @@ interface Props {
 
 const AccountInfo =  ({ email }: Props) => {
 const [plan, setPlan] = useState<string>()
+const router = useRouter()
+ const [open, setOpen] = useState(false)
    
  useEffect(()=>{
     const init =async ()=>{
@@ -31,7 +35,7 @@ const [plan, setPlan] = useState<string>()
  },[])
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <form>
                 <DialogTrigger asChild>
                     <CircleUserRoundIcon className="ml-5 h-10 w-10 text-gray-600 hover:cursor-pointer" />
@@ -53,8 +57,8 @@ const [plan, setPlan] = useState<string>()
                         </div>
                     </DialogHeader>
 
-
-                    <hr className='my-5' />
+             {plan!=="FREE"&& <p onClick={()=>{router.push("/account/billing");setOpen(false)}} className='text-xs text-gray-500 text-right hover:cursor-pointer hover:text-gray-600 mt-1'>サブスクリプションを解除する</p>}
+                    <hr className='h-1 mb-3' />
 
 
                     <div className='flex flex-col justify-center'>

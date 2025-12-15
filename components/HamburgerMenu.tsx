@@ -13,11 +13,6 @@ import { checkPlan } from "@/app/action"
 
 const HamburgerMenu = async () => {
 
-  let ifPremium
-  const res = await checkPlan()
-  ifPremium = res==="FREE" ? false : true
-
-  
   return (
 
     <Sheet >
@@ -36,7 +31,7 @@ const HamburgerMenu = async () => {
 
           <HamburgerHeader/>
           <TranslationHistory/>
-          <SubscriptionOption ifPremium={ifPremium}/>
+          <SubscriptionOption/>
             
 
         </div>

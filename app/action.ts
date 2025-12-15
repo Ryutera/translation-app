@@ -63,8 +63,6 @@ Always return ONLY valid JSON. No text before or after.
         input: input
     });
 
-    console.log(response)
-
     //ログイン時には翻訳結果をデータベースに追加
     const userId = await getUserId()
 
@@ -128,9 +126,7 @@ export async function getTranslationHistory() {
 
     const userId = await getUserId()
 
-    if (!userId) {
-        return { data: null, error: "Authentication required." 
-        }}
+    if (!userId) return
 
         try {
              const translations = await prisma.translation.findMany({

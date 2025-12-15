@@ -13,9 +13,6 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     const sourceText = res?.sourceText
     const data = JSON.parse(res?.output!)
-    console.log(data)
-
-
 
     return (
         <>

@@ -1,12 +1,13 @@
-
+"use client"
+import { Mic, MicOff } from 'lucide-react';
 import React, { useEffect } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 
 interface Props {
-setInputText:any
+  setInputText: any
 }
-const Dictaphone = ({setInputText}:Props) => {
+const RecordButton = ({ setInputText }: Props) => {
   const {
     transcript,
     listening,
@@ -19,22 +20,31 @@ const Dictaphone = ({setInputText}:Props) => {
   }
 
 
-  
 
-useEffect(()=>{setInputText(transcript)},[transcript])
+
+  useEffect(() => { setInputText(transcript) }, [transcript])
   return (
     <div>
-      <p>Microphone: {listening ? 'on' : 'off'}</p>
-        <button type="button" onClick={()=>SpeechRecognition.startListening()}>
-        入力開始
+      {listening? 
+      
+      <button onClick={() => { SpeechRecognition.stopListening() }}>
+        <MicOff />
       </button>
-      <button type="button" onClick={() => {SpeechRecognition.stopListening()}}>
-        Stop
+
+      :
+      <button  onClick={() => {
+        resetTranscript(); SpeechRecognition.startListening({
+          continuous: true,
+          interimResults: true,
+          language: "en-US", // or "en-GB"
+        })
+      }}>
+       <Mic/>
       </button>
-      <button type="button" onClick={() => resetTranscript()}>
-        リセット
-      </button>
+        }
+
+
     </div>
   );
 };
-export default Dictaphone;
+export default RecordButton;

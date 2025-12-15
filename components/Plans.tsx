@@ -13,9 +13,9 @@ async function handlePayment(){
       selectedPlan:selectedPlan
     })
 
-console.log(res,"res")
+
   const url = res.data.url
- console.log(res,"res")
+
    if (url) {
     window.location.href = url
   }

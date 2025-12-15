@@ -9,18 +9,14 @@ const TranslationHistory = async() => {
 let translations
 try {
    const res = await getTranslationHistory()
-   if (res.data===null) {
-    console.log(res.error)
-   }
-　translations = res.data
- console.log(translations)
+　translations = res?.data
 } catch (error) {
   console.error(error)
 }
 
 
   return (
-    <div className="h-full ">
+      <>
       {translations
         ?
         <div className="flex flex-col h-[80%] overflow-y-scroll gap-3  mt-12">
@@ -40,7 +36,7 @@ try {
           ログインするとここから翻訳履歴にアクセスできます
         </div>}
 
-    </div>
+</>
 
   )
 }

@@ -19,7 +19,7 @@ const useQuota = () => {
                const used = await checkQuotaToday(userId)
                 const rest = Math.max(DAILY_LIMIT - used, 0);
                 rest > 0 ? setRemaining(rest): setIsLimitReached(true) 
-             
+               
                 } catch (error) {
                     console.log(error)
                 }           
@@ -45,6 +45,8 @@ useEffect(() => {
     //残り0になった直後に値を切り替える
   if (remaining <= 0) {
     setIsLimitReached(true);
+  }else{
+    setIsLimitReached(false)
   }
 }, [userId, remaining]);
 

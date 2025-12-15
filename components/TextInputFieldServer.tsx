@@ -8,6 +8,7 @@ import getUserId from '@/lib/supabase/getUserId'
 const   TextInputFieldServer = async() => {
 
     const userId = await getUserId()
+    
 
     let ifPremium
     if (userId) {
@@ -17,7 +18,7 @@ const   TextInputFieldServer = async() => {
    
   return (
     <>
-    <TextInputField userId={userId}  ifPremium={ifPremium}/>
+    <TextInputField userId={userId} ifPremium={ifPremium} />
     </>
   )
 }

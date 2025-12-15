@@ -11,9 +11,7 @@ export default async function Home() {
   
  
 <div className="mt-20 mb-1 w-[80%] md:w-[60%]">
-  <h1 className="text-3xl mb-10">日本語の自然な表現をAIが翻訳!</h1>
-  {/* <p className="text-sm">無料翻訳　3/5</p> */}
-  
+  <h1 className="text-3xl mb-10">日本語の自然な表現をAIが翻訳!</h1>  
 </div>
 
 

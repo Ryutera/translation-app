@@ -86,7 +86,7 @@ Always return ONLY valid JSON. No text before or after.
     return response.output_text
 }
 
-//(アカウントがない場合に)ユーザー登録
+//(アカウントがない場合に)ユーザー
 export async function createUser(id: string) {
 
     const hasAccount = await prisma.user.findUnique({

@@ -29,12 +29,15 @@ export async function POST(req: Request) {
     const customerId = session.customer as string;
 
     const subscription: any = await stripe.subscriptions.retrieve(subscriptionId);
+console.log(subscription)
 
     const item = subscription.items.data[0];
     const endAt = item.current_period_end;
     const plan = item.price.recurring.interval
 
+
     const userId = session.metadata.userId
+
 
 
     //課金ユーザー用のデータを追加

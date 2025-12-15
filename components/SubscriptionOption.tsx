@@ -9,12 +9,17 @@ import Link from "next/link"
 import { useAuthStore } from "@/lib/store/useAuthStore"
 
 
-const SubscriptionOption = () => {
- const user = useAuthStore((state)=>state.user)
+interface Props {
+  ifPremium:boolean
+}
+const SubscriptionOption = ({ifPremium}:Props) => {
 
+ const user = useAuthStore((state)=>state.user)
  
   return (
-
+ifPremium? 
+<p className="flex items-center justify-center mb-3 hover:cursor-pointer text-sm text-gray-500"> サブスクリプションをキャンセルする</p>
+: 
     user?
       <Dialog>
         < DialogTrigger asChild >

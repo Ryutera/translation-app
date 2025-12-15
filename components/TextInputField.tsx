@@ -36,8 +36,7 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
     const [output, setOutput] = useState<TranslationResult | null>(null)
     const { decreaseCount, remaining, isLimitReached } = useQuota()
     const router = useRouter()
-    console.log(userId,"id")
-    console.log(isLimitReached,"リミットは？")
+  
 
 
 

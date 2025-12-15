@@ -12,7 +12,6 @@ const useQuota = () => {
     const user = useAuthStore((state)=>state.user)
     const userId = user?.id
 
-    console.log(isLimitReached,"limit")
 
     useEffect(() => {
         const init = async () => {

@@ -19,7 +19,7 @@ try {
       <>
       {translations
         ?
-        <div className="flex flex-col sm::h-[60%] h-[55%] gap-5 overflow-y-scroll  my-10">
+        <div className="flex flex-col sm::h-[60%] h-[55%] gap-3 overflow-y-scroll  my-10">
           {translations?.map((translation:any) => (
             <div
               key={translation.id}

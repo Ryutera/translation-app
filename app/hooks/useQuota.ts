@@ -12,6 +12,8 @@ const useQuota = () => {
     const user = useAuthStore((state)=>state.user)
     const userId = user?.id
 
+    console.log(isLimitReached,"limit")
+
     useEffect(() => {
         const init = async () => {
             if (userId) {
@@ -30,16 +32,27 @@ const useQuota = () => {
                 if (!data) {
                     localStorage.setItem("usageCount", JSON.stringify(3))
                     setRemaining(3)
+                   
+                    setIsLimitReached(false);
 
                 } else {
                     const count = JSON.parse(data)
-                    count <  1 ? setIsLimitReached(true) : setRemaining(count)
+                 
+                    setRemaining(count)
+                   
+                   
+                    if (count < 1) {
+                         setIsLimitReached(true);
+                    } else {
+                         setIsLimitReached(false); 
+                    }
                 }
             }
         }
         init()
-    }, [userId])
+    }, [userId,remaining])
    
+
 
 useEffect(() => {
     //残り0になった直後に値を切り替える
@@ -48,12 +61,13 @@ useEffect(() => {
   }else{
     setIsLimitReached(false)
   }
-}, [userId, remaining]);
+}, [remaining]);
 
     const decreaseCount = async () => {
        
         if (userId) {
        setRemaining(prev => Math.max(prev - 1, 0))
+
         } else {
 
             const data = localStorage.getItem("usageCount")

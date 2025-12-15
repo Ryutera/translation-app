@@ -100,7 +100,7 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
             {/* <button onClick={()=>checkQuotaToday(userId!)}>アクション</button> */}
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
-                <textarea placeholder="好きな言語で入力..." className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />
+                <textarea placeholder="翻訳したい文章を入力..." className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />
                 <ResultView loading={loading} output={output} />
             </div>
 

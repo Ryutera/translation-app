@@ -15,7 +15,7 @@ const HamburgerMenu = async () => {
 
   return (
 
-    <Sheet>
+    <Sheet >
       <SheetTrigger asChild>
         <Menu />
       </SheetTrigger>
@@ -27,7 +27,7 @@ const HamburgerMenu = async () => {
 
 
       <SheetContent>
-        <div className="flex flex-col justify-between h-full sm:pt-[25%] sm:pt-[30%]">
+        <div className="flex flex-col justify-between h-full pt-[30%] ">
 
           <HamburgerHeader/>
           <TranslationHistory/>

@@ -19,11 +19,11 @@ try {
       <>
       {translations
         ?
-        <div className="flex flex-col h-[80%] overflow-y-scroll gap-3  mt-12">
+        <div className="flex flex-col sm::h-[60%] h-[55%] gap-5 overflow-y-scroll  my-10">
           {translations?.map((translation:any) => (
             <div
               key={translation.id}
-              className="flex w-full justify-between h-10 px-10 items-center hover:bg-gray-50"
+              className="flex w-full justify-between  h-10 px-10 items-center hover:bg-gray-50"
             >
               <TranslationHistoryNavigation text={translation.sourceText} id={translation.id} />
 

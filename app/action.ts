@@ -178,7 +178,7 @@ export async function checkPlan() {
 
     if (!user) return 
 
-   return   user?.plan 
+   return   {planName:user.plan, proUntil:user.proUntil}
 
 
 }

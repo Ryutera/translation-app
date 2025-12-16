@@ -18,14 +18,20 @@ import { useRouter } from 'next/navigation'
 import { ACCOUNT_INFO } from '@/app/constants/accountInfoData'
 import { useLangOpstion } from '@/lib/store/useLangOption'
 import { LangType } from '@/lib/type/type'
+import { $Enums } from '@prisma/client'
 
 
 interface Props {
     email: string | undefined
 }
 
+interface Plan{
+ planName: string ;
+    proUntil: Date | null;
+}
+
 const AccountInfo = ({ email }: Props) => {
-    const [plan, setPlan] = useState<string>()
+    const [plan, setPlan] = useState<Plan|undefined>()
     const router = useRouter()
     const [open, setOpen] = useState(false)
     const selectedLang = useLangOpstion((state) => state.selectedLang) as LangType
@@ -33,6 +39,9 @@ const AccountInfo = ({ email }: Props) => {
     useEffect(() => {
         const init = async () => {
             const res = await checkPlan()
+            if (!res) {
+                return 
+            }
             setPlan(res)
         }
         init()
@@ -60,11 +69,14 @@ const AccountInfo = ({ email }: Props) => {
                         </div>
                         <div className='flex flex-row justify-center justify-between items-center mt-3'>
                             <p >{t.plan}</p>
-                            <p>{plan}</p>
+                            <div className='flex items-center justify-center gap-2'>
+                            <p>{plan?.planName}</p>
+                            <p className='text-xs text-gray-500'>(until:{plan?.proUntil?.toLocaleDateString()})</p>
+                            </div>
                         </div>
                     </DialogHeader>
 
-                    {plan !== "FREE" && <p onClick={() => { router.push("/account/billing"); setOpen(false) }} className='text-xs text-gray-500 text-right hover:cursor-pointer hover:text-gray-600 mt-1'>{t.cancelSub}</p>}
+                    {plan?.planName !== "FREE" && <p onClick={() => { router.push("/account/billing"); setOpen(false) }} className='text-xs text-gray-500 text-right hover:cursor-pointer hover:text-gray-600 mt-1'>{t.cancelSub}</p>}
                     <hr className='h-1 mb-3' />
 
 

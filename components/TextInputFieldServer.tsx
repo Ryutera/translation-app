@@ -8,13 +8,20 @@ import getUserId from '@/lib/supabase/getUserId'
 const   TextInputFieldServer = async() => {
 
     const userId = await getUserId()
-    
+    if (!userId) {
+      return 
+    }
 
     let ifPremium
-    if (userId) {
+
        const res  = await checkPlan()
-       ifPremium = res!== "FREE"
-    }
+       if (!res) {
+        return 
+       }
+
+       //キャンセルした場合でも期限まで有効なので現在の時刻が期限よりも前か後で課金ユーザーかどうかを判定
+       ifPremium = res?.proUntil?.getTime()! > Date.now() 
+    
    
   return (
     <>

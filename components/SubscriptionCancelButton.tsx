@@ -8,6 +8,18 @@ interface Props{
 proUntil:string | undefined
 }
 const SubscriptionCancelButton = ({proUntil}:Props) => {
+
+  const handleCancel = async () => {
+    const res = await cancelSubscription()
+    
+    if (res.alreadyCancelled) {
+        alert("Your cancellation has already been scheduled. You may continue to use the service until the end date.")
+       
+    } else if (res.success) {
+        alert("Your cancellation request has been processed.")
+    }
+}
+
   return (
     <Dialog>
   <DialogTrigger asChild>
@@ -21,7 +33,7 @@ const SubscriptionCancelButton = ({proUntil}:Props) => {
       <DialogDescription>
         Your Pro benefits remain active until the end of your billing period on {proUntil}
       </DialogDescription>
-      <Button className='mt-5 bg-red-300 hover:bg-red-400' onClick={cancelSubscription}>Confirm</Button>
+      <Button className='mt-5 bg-red-300 hover:bg-red-400' onClick={handleCancel}>Confirm</Button>
     </DialogHeader>
   </DialogContent>
 </Dialog>

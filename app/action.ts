@@ -259,12 +259,31 @@ export async function cancelSubscription(){
         customer:stripeId!
     })
 
-    const subId = res?.data[0].id
-    console.log(subId,"サブid")
 
+    const sub = res.data[0]
+    const subId = sub.id
+
+    // すでに cancel_at_period_end が true なら、更新せずにその旨を返す
+    if (sub.cancel_at_period_end) {
+        return { 
+            success: true, 
+            alreadyCancelled: true, 
+            message: "Subscription is already scheduled for cancellation." 
+        }
+    }
+
+
+
+    //即時キャンセルではなくキャンセルの期限になったら終了
    const subscription = await stripe.subscriptions.update(`${subId}`,{
     cancel_at_period_end:true
    });
+
+   return { 
+        success: true, 
+        alreadyCancelled: false, 
+        subscription 
+    }
    
-   console.log(subscription,"解除")
+
 }

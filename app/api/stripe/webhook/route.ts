@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     const customerId = session.customer as string;
 
     const subscription: any = await stripe.subscriptions.retrieve(subscriptionId);
-console.log(subscription)
+
 
     const item = subscription.items.data[0];
     const endAt = item.current_period_end;
@@ -39,19 +39,48 @@ console.log(subscription)
     const userId = session.metadata.userId
 
 
-
     //課金ユーザー用のデータを追加
     await prisma.user.update({
       where: {
         authUserId: userId
       }, data: {
         stripeCustomerId: customerId,
+        subscriptionId:subscriptionId,
         plan: plan,
         proUntil: new Date(endAt * 1000)
 
       }
     })
 
+
+  }
+
+  //予約されたサブスク終了日に処理される
+  if(event.type==="customer.subscription.deleted"){
+    const session = event.data.object as any; 
+    const subscriptionId = session.id
+  
+    const user = await prisma.user.findFirst({
+      where:{
+        subscriptionId:subscriptionId
+      }
+    })
+
+    if (!user) {console.log("User not found for subscription:", subscriptionId)
+      return
+    }
+
+    const userId = user.authUserId
+
+    await prisma.user.update({
+        where:{
+          authUserId:userId
+         },data:{
+          subscriptionId:null,
+          proUntil:null,
+          plan:"FREE"
+        }
+    })
 
   }
 

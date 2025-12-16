@@ -31,6 +31,7 @@ model User {
   plan             Plan          @default(FREE)
   proUntil         DateTime?
   stripeCustomerId String?
+  subscriptionId   String?
   createdAt        DateTime      @default(now())
   translations     Translation[]
 }

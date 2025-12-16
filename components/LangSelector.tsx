@@ -26,7 +26,7 @@ switch (value) {
     case "Chinese":
         selectCHN()
         break;
-    case "ENG":
+    case "English":
         selectENG()
         break;
     default:

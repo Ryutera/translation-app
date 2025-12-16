@@ -1,10 +1,14 @@
+import { Button } from '@/components/ui/button'
 import { stripe } from '@/lib/stripe'
+import { CircleCheck } from 'lucide-react'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
 interface Props {
   session_id: string | undefined
 }
+
 
 const SuccessContent = async({session_id}:Props) => {
 
@@ -13,8 +17,7 @@ const SuccessContent = async({session_id}:Props) => {
 
   const {
     status,
-    // customer_details: { email:any }
-  } = await stripe.checkout.sessions.retrieve(session_id, {
+    customer_details } = await stripe.checkout.sessions.retrieve(session_id, {
     expand: ['line_items', 'payment_intent']
   })
 
@@ -26,12 +29,16 @@ const SuccessContent = async({session_id}:Props) => {
    
     return (
       
-      <section id="success" className='h-screen w-full flex flex-col items-center justify-center'>
-        <p>
-          We appreciate your business! A confirmation email will be sent to{' '}
-          {/* {customerEmail}. If you have any questions, please email{' '} */}
-        </p>
-        <a href="mailto:orders@example.com">orders@example.com</a>.
+      <section id="success" className='h-screen w-full flex flex-col items-center justify-center '>
+        <div className='w-[40%] h-[50%]  flex items-center justify-center flex-col gap-2'>
+         <CircleCheck className='text-green-400 h-20 w-20' />
+        <p className='text-2xl font-bold my-5'>Payment Successful</p>
+        <p>We appreciate your business!</p>
+        <p> A confirmation email will be sent to {customer_details?.email}.</p>
+        <p> If you have any questions, please email {'ourEmail@example.com '}</p>
+        <Link href="/"> <Button className='bg-red-300 hover:bg-red-400 mt-10'>Home</Button></Link>
+         
+        </div>
       </section>
      
     )

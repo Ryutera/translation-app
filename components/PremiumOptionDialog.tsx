@@ -1,5 +1,4 @@
 
-import React from 'react'
 import Plans from './Plans'
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from './ui/dialog'
 
@@ -20,9 +19,7 @@ const PremiumOptionDialog = () => {
      <Plans/>
 
      
-      <p className="text-xs text-center text-gray-500 mt-3">
-        Cancel anytime during free trial
-      </p>
+     
     </div>
   </DialogContent>
   )

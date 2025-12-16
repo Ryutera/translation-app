@@ -33,7 +33,7 @@ export const ACCOUNT_INFO = {
         accountInfo: "账户信息",
         general: "一般",
         email: "电子邮箱",
-        plan: "方案",
+        plan: "当前方案",
         cancelSub: "取消订阅",
         account: "账户",
         logout: "登出",

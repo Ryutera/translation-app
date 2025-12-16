@@ -9,7 +9,6 @@ import { DialogHeader } from "./ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
 import HamburgerHeader from "./HamburgerHeader"
-import { checkPlan } from "@/app/action"
 
 const HamburgerMenu = async () => {
 

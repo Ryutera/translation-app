@@ -14,25 +14,31 @@ import { Button } from './ui/button'
 import AccountDeleteDialog from './AccountDeleteDialog'
 import { checkPlan } from '@/app/action'
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { ACCOUNT_INFO } from '@/app/constants/accountInfoData'
+import { useLangOpstion } from '@/lib/store/useLangOption'
+import { LangType } from '@/app/constants/introductionData'
 
 interface Props {
     email: string | undefined
 }
 
-const AccountInfo =  ({ email }: Props) => {
-const [plan, setPlan] = useState<string>()
-const router = useRouter()
- const [open, setOpen] = useState(false)
-   
- useEffect(()=>{
-    const init =async ()=>{
-       const res = await checkPlan()
-       setPlan(res)
-    }
-    init()
- },[])
+const AccountInfo = ({ email }: Props) => {
+    const [plan, setPlan] = useState<string>()
+    const router = useRouter()
+    const [open, setOpen] = useState(false)
+    const selectedLang = useLangOpstion((state) => state.selectedLang) as LangType
+
+    useEffect(() => {
+        const init = async () => {
+            const res = await checkPlan()
+            setPlan(res)
+        }
+        init()
+    }, [])
+
+    const t = ACCOUNT_INFO[selectedLang] || ACCOUNT_INFO.English
+
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -44,37 +50,37 @@ const router = useRouter()
 
                     <DialogHeader>
                         <DialogTitle></DialogTitle>
-                        <p className='font-bold text-xl my-8'>アカウント情報</p>
+                        <p className='font-bold text-xl my-8'>{t.accountInfo}</p>
 
-                        <p className='font-semibold'>一般</p>
+                        <p className='font-semibold text-left mb-2'>{t.general}</p>
                         <div className='flex flex-row justify-center justify-between items-center '>
-                            <p >Email</p>
+                            <p >{t.email}</p>
                             <p>{email}</p>
                         </div>
                         <div className='flex flex-row justify-center justify-between items-center mt-3'>
-                            <p >Plan</p>
+                            <p >{t.plan}</p>
                             <p>{plan}</p>
                         </div>
                     </DialogHeader>
 
-             {plan!=="FREE"&& <p onClick={()=>{router.push("/account/billing");setOpen(false)}} className='text-xs text-gray-500 text-right hover:cursor-pointer hover:text-gray-600 mt-1'>サブスクリプションを解除する</p>}
+                    {plan !== "FREE" && <p onClick={() => { router.push("/account/billing"); setOpen(false) }} className='text-xs text-gray-500 text-right hover:cursor-pointer hover:text-gray-600 mt-1'>{t.cancelSub}</p>}
                     <hr className='h-1 mb-3' />
 
 
                     <div className='flex flex-col justify-center'>
-                        <p className='font-semibold'>アカウント</p>
+                        <p className='font-semibold'>{t.account}</p>
                         <div className='mt-3 flex flex-row justify-between items-center '>
-                            <p>ログアウト</p>
+                            <p>{t.logout}</p>
                             <LogoutButton />
                         </div>
 
                         <div className='mt-3 flex flex-row justify-between items-center'>
-                            <p>アカウント削除</p>
+                            <p>{t.accountDelete}</p>
                             <Dialog>
                                 <DialogTrigger asChild>
-                                    <Button className='font-semibold bg-red-300 hover:bg-red-200'>アカウント削除</Button>
+                                    <Button className='font-semibold bg-red-300 hover:bg-red-200'>{t.accountDelete}</Button>
                                 </DialogTrigger>
-                                <AccountDeleteDialog/>
+                                <AccountDeleteDialog />
                             </Dialog>
                         </div>
                     </div>

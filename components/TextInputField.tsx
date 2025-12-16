@@ -89,7 +89,7 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
                 <></>
                 : userId ?
                     //無料ログインユーザー
-                    isLimitReached ? <p className="text-sm">本日の利用制限に達しました</p> : <p>ログインユーザー 利用回数{remaining}/10</p>
+                    isLimitReached ? <p className="text-sm">本日の利用制限に達しました<br/>(24時間後に再び利用できます)</p> : <p>利用回数{remaining}/10</p>
                     :
                     //非ログインユーザー
                     isLimitReached ? <p className="text-sm">利用制限に達しました</p> : <p className="text-sm">無料翻訳　{remaining}/3</p>

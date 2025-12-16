@@ -7,15 +7,21 @@ import {
 import PremiumOptionDialog from './PremiumOptionDialog'
 import Link from "next/link"
 import { useAuthStore } from "@/lib/store/useAuthStore"
-import { cancelSubscription } from "@/app/action"
+import { useLangOpstion } from "@/lib/store/useLangOption"
 
 
-interface Props {
-  ifPremium:boolean
-}
+
 const SubscriptionOption = () => {
 
  const user = useAuthStore((state)=>state.user)
+ const selectedLang = useLangOpstion((state)=>state.selectedLang)
+
+const buttonText = {
+  English: "View Plans",
+  Japanese: "プランを見る",
+  Korean: "요금제 보기", 
+  Chinese: "查看方案"    
+};
  
   return (
 
@@ -23,7 +29,7 @@ const SubscriptionOption = () => {
       <Dialog>
         < DialogTrigger asChild >
           <button className="mb-14 bg-red-300 w-[80%] mx-auto h-16 rounded-2xl text-white text-lg font-semibold hover:bg-red-400">
-            View Plans
+            {buttonText[selectedLang as keyof typeof buttonText]||"View Plans"}
           </button>
         </DialogTrigger >
 

@@ -1,14 +1,15 @@
 "use client"
-import { INTRO_CONTENT, LangType } from '@/app/constants/introductionData';
+import { INTRO_CONTENT } from '@/app/constants/introductionData';
 import { useLangOpstion } from '@/lib/store/useLangOption'
+import { LangType } from '@/lib/type/type';
 import React from 'react'
 
 
 const Introduction = () => {
-    const selectedLang = useLangOpstion((state) => state.selectedLang) as LangType;
+    const selectedLang = useLangOpstion((state) => state.selectedLang) as LangType
 
     // 該当する言語がない場合のフォールバック（デフォルトは英語）
-    const t = INTRO_CONTENT[selectedLang] || INTRO_CONTENT.English;
+    const t = INTRO_CONTENT[selectedLang] || INTRO_CONTENT.Japanese;
 
     return (
         <>

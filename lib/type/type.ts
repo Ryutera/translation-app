@@ -1,0 +1,1 @@
+export type LangType = 'English' | 'Japanese' | 'Korean' | 'Chinese';

@@ -1,4 +1,4 @@
-export type LangType = 'English' | 'Japanese' | 'Korean' | 'Chinese';
+
 
 export const INTRO_CONTENT = {
   English: {

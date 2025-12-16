@@ -17,7 +17,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ACCOUNT_INFO } from '@/app/constants/accountInfoData'
 import { useLangOpstion } from '@/lib/store/useLangOption'
-import { LangType } from '@/app/constants/introductionData'
+import { LangType } from '@/lib/type/type'
+
 
 interface Props {
     email: string | undefined
@@ -37,7 +38,7 @@ const AccountInfo = ({ email }: Props) => {
         init()
     }, [])
 
-    const t = ACCOUNT_INFO[selectedLang] || ACCOUNT_INFO.English
+    const t = ACCOUNT_INFO[selectedLang] || ACCOUNT_INFO.Japanese
 
 
     return (

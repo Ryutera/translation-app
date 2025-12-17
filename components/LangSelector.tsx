@@ -9,9 +9,6 @@ import {
   SelectTrigger,
   SelectValue,} from './ui/select'
 
-
-
-
 const LangSelector = () => {
     const {selectedLang,setLang} = useLangOpstion()
 

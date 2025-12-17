@@ -35,7 +35,6 @@ switch (value) {
    }
 
 
-   console.log(selectedLang)
   return (
   <Select onValueChange={(value)=>handleLangchange(value)}>
       <SelectTrigger className="w-[180px]">

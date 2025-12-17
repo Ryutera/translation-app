@@ -30,7 +30,8 @@ model User {
   authUserId       String        @unique
   plan             Plan          @default(FREE)
   proUntil         DateTime?
-  stripeCustomerId String?
+  languageSetting  String         @default("Japanese")
+  stripeCustomerId String?      
   subscriptionId   String?
   createdAt        DateTime      @default(now())
   translations     Translation[]

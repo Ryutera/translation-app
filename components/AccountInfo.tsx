@@ -18,7 +18,6 @@ import { useRouter } from 'next/navigation'
 import { ACCOUNT_INFO } from '@/app/constants/accountInfoData'
 import { useLangOpstion } from '@/lib/store/useLangOption'
 import { LangType } from '@/lib/type/type'
-import { $Enums } from '@prisma/client'
 
 
 interface Props {

@@ -4,7 +4,7 @@ export const ACCOUNT_INFO = {
         general: "一般",
         email: "メールアドレス",
         plan: "プラン",
-        cancelSub: "サブスクリプションを解除する",
+        cancelSub: "支払い・プラン管理",
         account: "アカウント",
         logout: "ログアウト",
         accountDelete: "アカウント削除"
@@ -14,7 +14,7 @@ export const ACCOUNT_INFO = {
         general: "General",
         email: "Email",
         plan: "Plan",
-        cancelSub: "Cancel Subscription",
+        cancelSub: "Manage Subscription",
         account: "Account",
         logout: "Logout",
         accountDelete: "Delete Account"
@@ -24,7 +24,7 @@ export const ACCOUNT_INFO = {
         general: "일반",
         email: "이메일",
         plan: "플랜",
-        cancelSub: "구독 해지하기",
+        cancelSub: "구독 및 결제 관리",
         account: "계정",
         logout: "로그아웃",
         accountDelete: "계정 삭제"
@@ -34,7 +34,7 @@ export const ACCOUNT_INFO = {
         general: "一般",
         email: "电子邮箱",
         plan: "当前方案",
-        cancelSub: "取消订阅",
+        cancelSub: "管理订阅与账单",
         account: "账户",
         logout: "登出",
         accountDelete: "注销账户"

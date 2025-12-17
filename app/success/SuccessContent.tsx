@@ -3,7 +3,7 @@ import { stripe } from '@/lib/stripe'
 import { CircleCheck } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import React from 'react'
+
 
 interface Props {
   session_id: string | undefined
@@ -36,7 +36,7 @@ const SuccessContent = async({session_id}:Props) => {
         <p>We appreciate your business!</p>
         <p> A confirmation email will be sent to {customer_details?.email}.</p>
         <p> If you have any questions, please email {'ourEmail@example.com '}</p>
-        <Link href="/"> <Button className='bg-red-300 hover:bg-red-400 mt-10'>Home</Button></Link>
+        <Link href="/"> <Button className=' mt-10'>Home</Button></Link>
          
         </div>
       </section>

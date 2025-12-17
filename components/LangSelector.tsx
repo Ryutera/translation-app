@@ -9,35 +9,13 @@ import {
   SelectTrigger,
   SelectValue,} from './ui/select'
 
-
-
-
 const LangSelector = () => {
-    const {selectedLang,selectKOR, selectENG,selectCHN,selectJPN} = useLangOpstion()
-   const handleLangchange = (value:string)=>{
-    
-switch (value) {
-    case "Japanese":
-        selectJPN()
-        break;
-    case "Korean":
-        selectKOR()
-        break;        
-    case "Chinese":
-        selectCHN()
-        break;
-    case "English":
-        selectENG()
-        break;
-    default:
-        break;
-}
-   }
+    const {selectedLang,setLang} = useLangOpstion()
 
 
-   console.log(selectedLang)
+
   return (
-  <Select onValueChange={(value)=>handleLangchange(value)}>
+  <Select onValueChange={(value)=>setLang(value)}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={selectedLang}/>
       </SelectTrigger>

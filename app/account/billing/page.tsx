@@ -4,7 +4,7 @@ import SubscriptionCancelButton from '@/components/SubscriptionCancelButton'
 const page = async() => {
   const data = await checkPlan()
   // 日付の取得をより確実に
-  const proUntil = data?.proUntil ? new Date(data.proUntil).toLocaleDateString() : '---'
+  const proUntil = data?.proUntil?.toLocaleDateString()
 
   return (
     <div className='min-h-screen w-full flex justify-center items-center bg-gray-50/50 p-4'>
@@ -30,7 +30,7 @@ const page = async() => {
           <div className='flex justify-between items-center'>
             <p className='text-gray-500 font-medium'>Valid Until</p>
             <div className='text-right'>
-              <p className='text-xl font-bold text-gray-800'>{proUntil}</p>
+              <p className='text-xl font-bold text-gray-800'>{proUntil || '---'}</p>
               <p className='text-[10px] text-gray-400 uppercase tracking-widest'>Next Renewal</p>
             </div>
           </div>
@@ -38,9 +38,11 @@ const page = async() => {
         </div>
 
         {/* ボタンエリア */}
+        {proUntil &&
         <div className='w-full flex justify-center mt-8'>
           <SubscriptionCancelButton proUntil={proUntil}/>
-        </div>
+        </div>}
+       
 
         <p className='mt-8 text-xs text-gray-400'>
           Securely processed by Stripe. Cancel anytime.

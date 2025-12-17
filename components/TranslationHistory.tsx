@@ -3,6 +3,7 @@
 import { getTranslationHistory } from "@/app/action"
 import TranslationDeleteButton from "./TranslationDeleteButton"
 import TranslationHistoryNavigation from "./TranslationHistoryNavigation"
+import HistoryAuthGuide from "./HistoryAuthGuide"
 
 
 const TranslationHistory = async() => {
@@ -32,9 +33,7 @@ try {
           ))}
         </div>
         :
-        <div className="flex flex-col items-center justify-center h-[80%] mt-10 px-6 text-center">
-          ログインするとここから翻訳履歴にアクセスできます
-        </div>}
+        <HistoryAuthGuide/>}
 
 </>
 

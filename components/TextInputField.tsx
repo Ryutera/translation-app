@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useEffectEvent, useState } from "react";
+import { useState } from "react";
 import RecordButton from "./RecordButton";
 import { generateTranslation } from "@/app/action";
 import useQuota from "@/app/hooks/useQuota";
@@ -98,9 +98,6 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
                     //非ログインユーザー
                     isLimitReached ? <p className="text-sm">{t.limitReached}</p> : <p className="text-sm">{t.remainingFree}　{remaining}/3</p>
             }
-
-            {/* <button onClick={()=>localStorage.setItem("usageCount",JSON.stringify(3))}>reset</button> */}
-            {/* <button onClick={()=>checkQuotaToday(userId!)}>アクション</button> */}
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <textarea placeholder={`${t.placeholder}`}className="bg-white w-full md:h-72 rounded-xl p-2 outline-none mb-5" onChange={(e) => setInputText(e.target.value)} value={inputText} />

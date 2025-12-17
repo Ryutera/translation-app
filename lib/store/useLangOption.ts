@@ -1,17 +1,23 @@
-import {create} from 'zustand'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-interface State{
-selectedLang:string,
-selectKOR:()=>void,
-selectENG:()=>void
-selectCHN:()=>void
-selectJPN:()=>void
+
+interface State {
+    selectedLang: string,
+    setLang: (lang:string) => void,
 }
 
-export const useLangOpstion = create<State>((set)=>({
-selectedLang : "English",
-selectKOR: ()=>set(()=>({selectedLang:"Korean"})),
-selectENG: ()=>set(()=>({selectedLang:"English"})),
-selectCHN: ()=>set(()=>({selectedLang:"Chinese"})),
-selectJPN: ()=>set(()=>({selectedLang:"Japanese"}))
-}))
+export const useLangOpstion = create<State>()(
+    persist(
+        (set) => ({
+            selectedLang:  "Japanese",
+            setLang: (lang:string) => {
+                set({ selectedLang: lang })
+            }
+        }),
+        {
+            name: 'lang-storage'
+        }
+    ),
+
+)

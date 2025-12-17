@@ -33,32 +33,28 @@ useEffect(()=>{
 },[lang])
 
 
-// //ここがエラーの原因になっていそう
-//   if (!browserSupportsSpeechRecognition) {
-//     return <span>Browser doesn't support speech recognition.</span>;
-//   }
-
-
-
-
   useEffect(() => { setInputText(transcript) }, [transcript])
   return (
     <div>
       {listening ?
 
-        <button onClick={() => { SpeechRecognition.stopListening() }}>
-          <Check />
+        <button 
+         className='rounded-full bg-red-50 p-1'
+        onClick={() => { SpeechRecognition.stopListening() }}>
+          <Check className='text-red-300'/>
         </button>
 
         :
-        <button onClick={() => {
+        <button 
+        className='rounded-full bg-red-50 p-1'
+        onClick={() => {
           resetTranscript(); SpeechRecognition.startListening({
             continuous: true,
             interimResults: true,
             language: selectedLang
           })
         }}>
-          <Mic />
+          <Mic className='text-red-300'/>
         </button>
       }
 

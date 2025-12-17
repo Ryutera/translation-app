@@ -70,7 +70,9 @@ const AccountInfo = ({ email }: Props) => {
                             <p >{t.plan}</p>
                             <div className='flex items-center justify-center gap-2'>
                             <p>{plan?.planName}</p>
-                            <p className='text-xs text-gray-500'>(until:{plan?.proUntil?.toLocaleDateString()})</p>
+                            {plan?.proUntil&&
+                            <p className='text-xs text-gray-500'>until:{plan?.proUntil?.toLocaleDateString()}</p>
+                                }
                             </div>
                         </div>
                     </DialogHeader>

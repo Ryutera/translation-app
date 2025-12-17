@@ -110,12 +110,6 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
                 <ResultView loading={loading} output={output} />
             </div>
 
-
-            {/* <div className="flex flex-row">
-                <RecordButton setInputText={setInputText} />
-
-            </div>  */}
-
             {renderTranslationButton()}
 
 

@@ -16,11 +16,21 @@ const SubscriptionOption = () => {
 
  const user = useAuthStore((state)=>state.user)
  const selectedLang = useLangOpstion((state)=>state.selectedLang)　as LangType
-const buttonText = {
+const translationForPlans = {
   English: "View Plans",
   Japanese: "プランを見る",
   Korean: "요금제 보기", 
   Chinese: "查看方案"    
+};
+
+
+
+
+const translationForSignUp = {
+  English: "Sign up for free",
+  Japanese: "無料登録",
+  Korean: "무료 가입", 
+  Chinese: "免费注册"    
 };
  
   return (
@@ -29,7 +39,7 @@ const buttonText = {
       <Dialog>
         < DialogTrigger asChild >
           <button className="mb-14 bg-red-300 w-[80%] mx-auto h-16 rounded-2xl text-white text-lg font-semibold hover:bg-red-400">
-            {buttonText[selectedLang as keyof typeof buttonText]||"View Plans"}
+            {translationForPlans[selectedLang as keyof typeof translationForPlans]||"View Plans"}
           </button>
         </DialogTrigger >
 
@@ -38,9 +48,9 @@ const buttonText = {
       </Dialog >
       :
      <div className="px-4 mb-14">
-        <Link href="/auth/sign-up">
-          <button className="bg-red-300 w-full h-12 rounded-2xl text-white text-lg hover:bg-red-400 mb-[10%]">{buttonText[selectedLang]}</button>
-        </Link>
+       <Link href="/auth/sign-up">
+          <button className="bg-red-300 w-full h-12 rounded-2xl text-white text-lg hover:bg-red-400 mb-[10%]">{translationForSignUp[selectedLang]}</button>
+      </Link>
       </div>
 
   )

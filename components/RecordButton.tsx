@@ -39,7 +39,7 @@ useEffect(()=>{
       {listening ?
 
         <button 
-         className='rounded-full bg-red-50 p-1'
+         className='rounded-full bg-red-50 p-1 w-5 h-5'
         onClick={() => { SpeechRecognition.stopListening() }}>
           <Check className='text-red-300'/>
         </button>
@@ -54,7 +54,7 @@ useEffect(()=>{
             language: selectedLang
           })
         }}>
-          <Mic className='text-red-300'/>
+          <Mic className='text-red-300 w-5 h-5'/>
         </button>
       }
 

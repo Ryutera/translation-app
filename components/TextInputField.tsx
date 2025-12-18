@@ -100,9 +100,9 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
             }
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
-                <div className="relative w-full">
+                <div className="relative w-full md:h-80 h-48">
                     <textarea placeholder={`${t.placeholder}`} className="bg-white w-full md:h-72 h-36 rounded-xl p-2 outline-none mb-5 resize-none border border-3" onChange={(e) => setInputText(e.target.value)} value={inputText} />
-                    <div className="absolute bottom-6 right-1 flex items-center justify-center rounded-full p-2">
+                    <div className="absolute md:bottom-8 bottom-12 right-1 flex items-center justify-center rounded-full p-2">
                         <RecordButton setInputText={setInputText} />
                     </div>
                 </div>

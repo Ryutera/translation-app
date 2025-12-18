@@ -169,6 +169,9 @@ export async function deleteTranslationHistory(id: string) {
 
 export async function checkPlan() {
     const userId = await getUserId()
+    if (!userId) {
+        return
+    }
 
     const user = await prisma.user.findFirst({
         where: {

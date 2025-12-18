@@ -11,9 +11,11 @@ let translations
 try {
    const res = await getTranslationHistory()
 　translations = res?.data
+
 } catch (error) {
   console.error(error)
 }
+
 
 
   return (
@@ -21,7 +23,7 @@ try {
       {translations
         ?
         <div className="flex flex-col sm::h-[60%] h-[55%] gap-3 overflow-y-scroll  my-10">
-          {translations?.map((translation:any) => (
+          {translations?.map((translation) => (
             <div
               key={translation.id}
               className="flex w-full justify-between  h-10 px-10 items-center hover:bg-gray-50"

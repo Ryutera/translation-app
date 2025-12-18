@@ -1,12 +1,12 @@
 "use client"
 import { useLangOpstion } from '@/lib/store/useLangOption';
-import { Check, Mic, MicOff, X } from 'lucide-react';
+import { Check, Mic} from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 
 interface Props {
-  setInputText: any
+  setInputText: React.Dispatch<React.SetStateAction<string>>
 }
 const RecordButton = ({ setInputText }: Props) => {
   const [selectedLang , setSelectedLang] = useState("en-US")

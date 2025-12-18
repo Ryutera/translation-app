@@ -1,9 +1,26 @@
-import React from 'react'
 import TranslationErrorMessage from './TranslationErrorMessage'
+
+
+
+interface OkOutput {
+    status: "ok";
+    detectedLang: string;
+    translationJa: string;
+    meaningUserLang: string;
+    notes: string[];
+}
+
+interface InvalidOutput {
+    status: "invalid_input";
+    detectedLang?: string | null;
+    messageUserLang: string;
+}
+
+type Output = OkOutput | InvalidOutput | null;
 
 interface Props {
     loading: boolean
-    output: any
+    output: Output
 }
 
 const ResultView = (props: Props) => {

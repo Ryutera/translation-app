@@ -3,7 +3,7 @@ export default function LegalPage() {
     <main className="flex flex-col items-center w-full min-h-screen bg-[#ffd1d112] ">
       <div className="mt-28 mb-20 w-[90%] md:w-[60%] max-w-4xl bg-white p-8 md:p-16 rounded-[2rem] shadow-sm border border-black/5">
         <h1 className="text-3xl font-black text-gray-900 mb-10 border-b pb-6">
-          Legal Information / 利用規約・法的事項
+          Legal Information
         </h1>
 
         <div className="space-y-14 text-gray-700 leading-relaxed">
@@ -12,26 +12,26 @@ export default function LegalPage() {
           <section>
             <h2 className="text-xl font-bold text-red-500 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-6 bg-red-400 rounded-full"></span>
-              運営者情報 / Operator Information
+              Operator Information
             </h2>
 
             <div className="pl-4 space-y-3 text-sm md:text-base">
               <p>
-                本サービス「Peraphrase」は、個人開発者により運営されています。
+                This service, <strong>Peraphrase</strong>, is operated by an independent developer.
               </p>
 
               <ul className="space-y-3 mt-4">
                 <li>
                   <strong className="block text-gray-900">
-                    運営者名 / Operator
+                    Operator
                   </strong>
                   Peraphrase
                 </li>
                 <li>
                   <strong className="block text-gray-900">
-                    連絡先 / Contact
+                    Contact
                   </strong>
-                  サイト内のお問い合わせフォーム
+                  Please contact us via the inquiry form available on this website.
                 </li>
               </ul>
 
@@ -45,28 +45,30 @@ export default function LegalPage() {
           <section>
             <h2 className="text-xl font-bold text-red-500 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-6 bg-red-400 rounded-full"></span>
-              利用規約 / Terms of Service
+              Terms of Service
             </h2>
 
             <div className="pl-4 space-y-4 text-sm md:text-base">
               <p>
-                本サービスをご利用いただくことで、ユーザーは本利用規約に同意したものとみなされます。
+                By using this service, you agree to these Terms of Service.
               </p>
 
               <p>
-                本サービスは、日本語学習および表現補助を目的としたデジタルサービスです。
-                出力される翻訳・言い換え結果の正確性、完全性、特定目的への適合性について保証するものではありません。
+                This service is a digital product designed to support Japanese language learning
+                and expression. We do not guarantee the accuracy, completeness, or suitability
+                of any generated translations or paraphrased content.
               </p>
 
               <ul className="list-disc pl-5 space-y-2">
-                <li>法令または公序良俗に反する行為</li>
-                <li>不正アクセスやサービスに過度な負荷を与える行為</li>
-                <li>リバースエンジニアリング、スクレイピング、不正な自動化</li>
-                <li>嫌がらせ、差別的表現、なりすまし行為</li>
+                <li>Activities that violate laws or public order</li>
+                <li>Unauthorized access or actions that place excessive load on the service</li>
+                <li>Reverse engineering, scraping, or unauthorized automation</li>
+                <li>Harassment, discriminatory behavior, or impersonation</li>
               </ul>
 
               <p>
-                規約違反が確認された場合、運営者は事前通知なくアカウントの停止または削除を行うことがあります。
+                If a violation of these terms is confirmed, we may suspend or terminate the user’s
+                account without prior notice.
               </p>
             </div>
           </section>
@@ -75,27 +77,28 @@ export default function LegalPage() {
           <section>
             <h2 className="text-xl font-bold text-red-500 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-6 bg-red-400 rounded-full"></span>
-              サブスクリプション・支払い / Subscription & Payment
+              Subscription & Payment
             </h2>
 
             <div className="pl-4 space-y-4 text-sm md:text-base">
               <ul className="list-disc pl-5 space-y-2">
-                <li>月額プラン：$3.99 USD</li>
-                <li>年額プラン：$39.99 USD</li>
+                <li>Monthly Plan: $3.99 USD</li>
+                <li>Annual Plan: $39.99 USD</li>
               </ul>
 
               <p>
-                お支払いはStripeを通じて処理され、購入手続き完了後、直ちにサービスの提供が開始されます。
+                Payments are processed via Stripe, and access to the service begins immediately
+                after the checkout process is completed.
               </p>
 
               <p>
-                サブスクリプションは自動更新されます。
-                ユーザーはアカウント内の「Account / Billing」ページからいつでも解約できます。
+                Subscriptions renew automatically. You may cancel your subscription at any time
+                via the “Account / Billing” page.
               </p>
 
               <p>
-                解約後も、次回更新日までは引き続きサービスをご利用いただけます。
-                日割りによる返金は行っておりません。
+                After cancellation, access will remain available until the next renewal date.
+                No prorated refunds are provided.
               </p>
             </div>
           </section>
@@ -103,21 +106,22 @@ export default function LegalPage() {
           {/* 4. Refund */}
           <section className="bg-red-50 p-6 rounded-2xl border border-red-100">
             <h2 className="text-xl font-bold text-red-600 mb-2">
-              返品・返金ポリシー / Refund Policy
+              Refund Policy
             </h2>
 
             <div className="space-y-2 text-sm md:text-base">
               <p>
-                本サービスはデジタルサービスの性質上、購入手続き完了後は直ちに提供が開始されるため、
-                原則として返金には応じておりません。
+                Due to the nature of digital services, access begins immediately after purchase,
+                and refunds are generally not offered.
               </p>
+
               <p className="text-xs italic text-red-400">
-                Due to the nature of digital services, refunds are generally not offered.
+                All sales are final unless otherwise required by law.
               </p>
 
               <p>
-                ただし、サービスが正常に提供されない場合や重大な不具合が発生した場合には、
-                状況を確認のうえ、修正対応、代替提供、または返金を行うことがあります。
+                However, if the service cannot be provided as intended or a significant technical
+                issue occurs, we may offer a fix, replacement, or refund on a case-by-case basis.
               </p>
             </div>
           </section>
@@ -126,24 +130,24 @@ export default function LegalPage() {
           <section>
             <h2 className="text-xl font-bold text-red-500 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-6 bg-red-400 rounded-full"></span>
-              プライバシー / Privacy Policy
+              Privacy Policy
             </h2>
 
             <div className="pl-4 space-y-4 text-sm md:text-base">
               <ul className="list-disc pl-5 space-y-2">
-                <li>アカウント登録時のメールアドレス</li>
-                <li>翻訳・言い換えの入力テキストおよび履歴</li>
-                <li>サブスクリプション決済に関する情報（Stripeにより処理）</li>
+                <li>Email address provided during account registration</li>
+                <li>User input text and translation / paraphrasing history</li>
+                <li>Subscription-related payment information (processed by Stripe)</li>
               </ul>
 
               <p>
-                本サービスでは、翻訳・言い換え処理に外部のAIサービス（OpenAI API）を利用しています。
-                データはサービス提供および改善の目的にのみ使用されます。
+                This service uses external AI services (such as the OpenAI API) to process text.
+                Collected data is used solely for providing and improving the service.
               </p>
 
               <p>
-                ユーザーはアカウント削除機能を利用することで、
-                保存されたデータをデータベースから削除できます。
+                Users may delete their account at any time, which will remove their stored data
+                from our database.
               </p>
             </div>
           </section>
@@ -151,33 +155,32 @@ export default function LegalPage() {
           {/* 6. Age */}
           <section>
             <h2 className="font-bold text-gray-900 mb-2">
-              年齢制限 / Age Requirement
+              Age Requirement
             </h2>
             <p className="text-sm text-gray-600">
-              本サービスは13歳未満の方の利用を想定していません。
+              This service is not intended for users under the age of 13.
             </p>
           </section>
 
           {/* 7. Disclaimer */}
           <section>
             <h2 className="font-bold text-gray-900 mb-2">
-              免責事項 / Disclaimer
+              Disclaimer
             </h2>
             <p className="text-sm text-gray-600">
-              本サービスの利用に関連して生じたいかなる損害についても、
-              運営者は一切の責任を負いません。
-              ユーザーは自己責任において本サービスをご利用ください。
+              The operator shall not be liable for any damages arising from the use of this service.
+              Users use the service at their own risk.
             </p>
           </section>
 
           {/* 8. Changes */}
           <section>
             <h2 className="font-bold text-gray-900 mb-2">
-              規約の変更 / Changes to These Terms
+              Changes to These Terms
             </h2>
             <p className="text-sm text-gray-600">
-              本規約は予告なく変更されることがあります。
-              変更後の規約は、本ページに掲載された時点で効力を生じます。
+              These terms may be updated without prior notice.
+              The revised terms take effect once published on this page.
             </p>
           </section>
         </div>

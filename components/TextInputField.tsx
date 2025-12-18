@@ -34,7 +34,7 @@ interface Props {
     ifPremium?: boolean
 }
 const TextInputField = ({ userId, ifPremium }: Props) => {
-    const [inputText, setInputText] = useState("")
+    const [inputText, setInputText] = useState<string>("")
     const [loading, setLoading] = useState(false)
     const [output, setOutput] = useState<TranslationResult | null>(null)
     const { decreaseCount, remaining, isLimitReached } = useQuota()

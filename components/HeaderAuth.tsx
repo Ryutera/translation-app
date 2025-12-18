@@ -15,7 +15,7 @@ const HeaderAuth = () => {
             <Suspense>
            <HamburgerMenu/>
            </Suspense>
-            <div className="text-red-400 font-bold text-lg h-full flex justify-center items-center "><Link href={"/"}>TameGo</Link></div>  
+            <div className="text-red-400 font-bold text-lg h-full flex justify-center items-center "><Link href={"/"}>Peraphrase</Link></div>  
               <Suspense>
                 <AuthButton/>
               </Suspense>

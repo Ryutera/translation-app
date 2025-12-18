@@ -31,10 +31,11 @@ const Translations = {
 };
 
     return (
-        <h2 className="text-xl md:text-3xl font-bold text-gray-800 leading-snug mt-6">
+        <h2 className="text-lg md:text-2xl font-bold text-gray-800 leading-snug mt-6">
             {Translations[selectedLang].first} <br className="md:hidden" />
             <span className="text-red-400">{Translations[selectedLang].highlight} </span>{Translations[selectedLang].last}
         </h2>
+        
     )
 }
 

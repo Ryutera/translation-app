@@ -17,32 +17,33 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     return (
         <>
   
-       <div className="flex flex-col gap-8 w-[70%] h-screen mx-auto items-center justify-center">
-         
+       <div className="flex flex-col gap-8 w-full px-[20%] h-screen mx-auto items-center justify-center bg-[#ffd1d112]  ">
+        
 
  {/* 元の入力 */}
   <div className="w-full bg-white p-6 rounded-2xl shadow-md border border-red-200">
-    <h2 className="text-red-500 font-bold text-lg mb-2">Source Input</h2>
+    <h2 className="text-red-400 font-bold text-lg mb-2">Source Input</h2>
     <p className="text-gray-800 leading-relaxed">{sourceText}</p>
   </div>
 
  
   <div className="w-full bg-white p-6 rounded-2xl shadow-md border border-red-200">
-    <h2 className="text-red-500 font-bold text-lg mb-2">Translation</h2>
+    <h2 className="text-red-400 font-bold text-lg mb-2">Translation</h2>
     <p className="text-gray-800 leading-relaxed">{data.translationJa}</p>
   </div>
 
   
   <div className="w-full bg-white p-6 rounded-2xl shadow-md border border-red-200">
-    <h2 className="text-red-500 font-bold text-lg mb-2">Explanation</h2>
+    <h2 className="text-red-400 font-bold text-lg mb-2">Explanation</h2>
     <ul className="text-gray-800 leading-relaxed">
       {data.notes?.map((note: string, index: number) => (
         <li className="mb-2" key={index}>・{note}</li>
       ))}
     </ul>
   </div>
+  </div> 
 
-</div>       
+
         </>
     )
 }

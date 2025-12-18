@@ -13,22 +13,19 @@ const Introduction = () => {
 
     return (
         <>
-            {/* 上部：できることセクション */}
-            <div className="w-[80%] md:w-[60%] mt-20 mb-10">
-                <h2 className="text-2xl font-bold mb-8 text-center text-gray-800">
-                    {t.sectionTitle}
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 text-center md:text-left">
-                        <h3 className="font-bold text-lg mb-2 text-red-500">{t.feature1Title}</h3>
-                        <p className="text-gray-600 text-sm leading-relaxed">{t.feature1Desc}</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 text-center md:text-left">
-                        <h3 className="font-bold text-lg mb-2 text-red-500">{t.feature2Title}</h3>
-                        <p className="text-gray-600 text-sm leading-relaxed">{t.feature2Desc}</p>
-                    </div>
+            
+
+            {/* 上段:コンセプト */}
+            <div className='flex justify-center items-center flex-col w-[60%]  mt-20 mb-10'>
+                <div className='text-red-400 font-semibold bg-red-100 px-3 py-1 text-sm rounded-3xl tracking-wider my-10'>OUR CONCEPT</div>
+                <p className='text-3xl font-bold mb-7'>Paraphrase で、もっと PeraPera に。</p>
+                
+                <div className='mx-[20%]'>
+                <p>「Peraphrase（ペラフレーズ）」という名前には、Paraphrase（言い換え）を味方につけて、 もっと PeraPera（流暢）に自分を表現してほしいという願いが込められています。</p>
+                <br/>
+                <p>ネイティブが日常で使うような、 あなたらしい「自然な日本語」を話すためのパートナーを目指しています。</p>
                 </div>
-            </div>
+            </div> 
 
             {/* 中部：3つのカードセクション */}
             <div className="w-[85%] md:w-[70%] mt-20">
@@ -55,7 +52,7 @@ const Introduction = () => {
 
             {/* 下部：メッセージセクション */}
             <div className="w-[85%] md:w-[60%] mt-24 mb-10 text-center">
-                <div className="bg-red-400 p-1 rounded-[3rem] shadow-xl">
+                <div className="bg-red-300 p-1 rounded-[3rem] shadow-xl">
                     <div className="bg-white p-10 rounded-[2.9rem]">
                         <h2 className="text-2xl md:text-3xl font-black mb-6 text-gray-800 leading-tight">
                             {t.footerTitle.split('、').map((text:string, i:any) => (

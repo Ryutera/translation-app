@@ -1,5 +1,4 @@
 
-
 import { getTranslationHistory } from "@/app/action"
 import TranslationDeleteButton from "./TranslationDeleteButton"
 import TranslationHistoryNavigation from "./TranslationHistoryNavigation"

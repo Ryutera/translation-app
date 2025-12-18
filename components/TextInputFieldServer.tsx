@@ -8,9 +8,7 @@ import getUserId from '@/lib/supabase/getUserId'
 const   TextInputFieldServer = async() => {
 
     const userId = await getUserId()
-    console.log(userId,"ユーザーid")
    
-
     let ifPremium
 
        const res  = await checkPlan()

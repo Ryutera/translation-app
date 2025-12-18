@@ -31,21 +31,32 @@ const ResultView = (props: Props) => {
         return <TranslationErrorMessage/>
     } else if (output?.status === "ok") {
         return <div className=" flex items-start justify-start flex-col gap-5 ">
-            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
-                <p>Translation</p>
+
+            <div className="text-left bg-white border border-red-200 p-2 rounded-lg text-gray-700  w-full">
+                <div className="flex items-center gap-2 mb-3">
+                <span className="inline-block w-1.5 h-4 rounded bg-red-300" />
+                <h3 className='text-red-300 font-semibold'>Translation</h3>
+                </div>
                 <p>{translation}</p>
             </div>
 
-            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
-                <p>Meaning</p>
+            <div className="text-left bg-white border border-red-200 p-2 rounded-lg text-gray-700  w-full">
+                <div className="flex items-center gap-2 mb-3">
+                <span className="inline-block w-1.5 h-4 rounded bg-red-300" />
+                <h3 className='text-red-300 font-semibold'>Meaning</h3>
+                </div>
                 <p>{meaning}</p>
             </div>
 
-            <div className="text-left bg-red-300 p-2 rounded-lg text-white font-semibold w-full">
-                <p>Explanation</p>
+            <div className="text-left bg-white border border-red-200 p-2 rounded-lg text-gray-700  w-full">
+                <div className="flex items-center gap-2 mb-3">
+                <span className="inline-block w-1.5 h-4 rounded bg-red-300" />
+                <h3 className='text-red-300 font-semibold'>Explanation</h3>
+                </div>
+
                 <ul>
                     {notes?.map((note: string, index: number) => (
-                        <li className="mb-2 " key={index}>・{note}</li>
+                        <li className="mb-3 " key={index}>・{note}</li>
                     ))}
                 </ul>
 

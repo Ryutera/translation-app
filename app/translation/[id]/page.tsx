@@ -17,7 +17,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     return (
         <>
   
-       <div className="flex flex-col gap-8 w-full px-[20%] h-screen mx-auto items-center justify-center bg-[#ffd1d112]  ">
+       <div className="flex flex-col gap-8 w-full px-[20%] h-screen mx-auto items-center justify-center bg-[#ffd1d112]   ">
         
 
  {/* 元の入力 */}

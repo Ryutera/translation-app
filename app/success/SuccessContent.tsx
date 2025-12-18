@@ -29,17 +29,41 @@ const SuccessContent = async({session_id}:Props) => {
    
     return (
       
-      <section id="success" className='h-screen w-full flex flex-col items-center justify-center '>
-        <div className='w-[40%] h-[50%]  flex items-center justify-center flex-col gap-2'>
-         <CircleCheck className='text-green-400 h-20 w-20' />
-        <p className='text-2xl font-bold my-5'>Payment Successful</p>
-        <p>We appreciate your business!</p>
-        <p> A confirmation email will be sent to {customer_details?.email}.</p>
-        <p> If you have any questions, please email {'ourEmail@example.com '}</p>
-        <Link href="/"> <Button className=' mt-10'>Home</Button></Link>
-         
+      <section id="success" className="min-h-screen w-full flex flex-col items-center justify-center bg-[#ffd1d112] px-4">
+      <div className="w-full max-w-md md:max-w-lg bg-white p-8 md:p-12 rounded-3xl shadow-sm border  flex items-center justify-center flex-col text-center transition-all">
+        
+       
+        <div className="mb-6">
+          <CircleCheck className="text-green-400 h-16 w-16 md:h-20 md:w-20 animate-in zoom-in duration-500" />
         </div>
-      </section>
+
+       
+        <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 tracking-tight">
+          Payment Successful
+        </h2>
+        
+        <p className="text-gray-600 font-medium mb-6">
+          We appreciate your business!
+        </p>
+
+       
+        <div className="space-y-3 text-sm md:text-base text-gray-500 leading-relaxed mb-8">
+          <p>
+            A confirmation email will be sent to:
+            <span className="block font-bold text-gray-800 break-all">
+              {customer_details?.email || "your email address"}
+            </span>
+          </p>
+          
+          
+        </div>
+
+        {/* アクションボタン */}
+         <Link href="/"> <Button className=' mt-10'>Home</Button></Link>
+         
+
+      </div>
+    </section>
      
     )
   }

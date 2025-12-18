@@ -3,7 +3,7 @@ import getUserId from "@/lib/supabase/getUserId";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST(req:any,res:any){
+export async function POST(req:Request,res:Response){
     const {selectedPlan} = await req.json()
     const plan = selectedPlan as "anual" | "monthly";
    const PRICE_ID = plan==="anual"? "price_1SalmBR1aFV3l4B31HExSSLH":  "price_1SalloR1aFV3l4B35KUWcWMy"

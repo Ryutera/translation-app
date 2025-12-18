@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import TextInputFieldServer from "@/components/TextInputFieldServer";
 import Introduction from "@/components/Introduction";
 import HeroSection from "@/components/HeroSection";
+import Link from "next/link";
 
 export default async function Home() {
 
@@ -27,13 +28,20 @@ export default async function Home() {
      
 <Introduction/>
 
- <footer className="w-full py-10 mt-10 border-t border-amber-100 flex flex-col items-center gap-4 text-gray-500 text-sm">
-    <div className="flex gap-6">
-      <a href="mailto:your-email@example.com" className="hover:text-gray-700">
+ <footer className="w-full py-10 px-12 mt-10 border-t border-amber-100 flex flex-row justify-between items-center gap-4 text-gray-500 text-sm">
+   
+    <p>© 2025 Peraphrase. All rights reserved.</p>
+
+     <div className="flex flex-row gap-6">
+      <a href="mailto:ryutera.dev@gmail.com" className="hover:text-gray-700">
         Contact
       </a>
+       <Link href="/commercial-law">
+        Terms of Service
+       </Link>
+      
     </div>
-    <p>© 2025 Peraphrase. All rights reserved.</p>
+
   </footer>
 
      

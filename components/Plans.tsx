@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Check, CheckCircle2 } from 'lucide-react'
+import { CheckCircle2 } from 'lucide-react'
 import { useLangOpstion } from '@/lib/store/useLangOption'
 import { LangType } from '@/lib/type/type'
 import {PLANS_UI} from '@/app/constants/plansData'
 
 const Plans = () => {
-   const [selectedPlan, setSelectedPlan] = useState<""|"anual"|"monthly">("")
+   const [selectedPlan, setSelectedPlan] = useState<""|"annual"|"monthly">("")
    const notSelected = selectedPlan===""
    const selectedLang = useLangOpstion((state)=>state.selectedLang) as LangType
    const t = PLANS_UI[selectedLang] || PLANS_UI.Japanese
@@ -45,7 +45,7 @@ async function handlePayment(){
         </div>
 
         {/* Annual Plan  */}
-        <div className={`border-2  rounded-3xl p-6  relative cursor-pointer hover:border-red-400 ${selectedPlan==="anual"&&"bg-red-50"}`} onClick={()=>setSelectedPlan("anual")}>
+        <div className={`border-2  rounded-3xl p-6  relative cursor-pointer hover:border-red-400 ${selectedPlan==="annual"&&"bg-red-50"}`} onClick={()=>setSelectedPlan("annual")}>
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-400 text-white text-xs font-bold px-4 py-1 rounded-full">
             {t.bestValue}
           </div>

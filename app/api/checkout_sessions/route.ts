@@ -5,8 +5,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(req:Request){
     const {selectedPlan} = await req.json()
-    const plan = selectedPlan as "anual" | "monthly";
-   const PRICE_ID = plan==="anual"? "price_1SalmBR1aFV3l4B31HExSSLH":  "price_1SalloR1aFV3l4B35KUWcWMy"
+    const plan = selectedPlan as "annual" | "monthly";
+ const PRICE_ID =
+  plan === "annual"
+    ? process.env.STRIPE_PRICE_ANNUAL!
+    : process.env.STRIPE_PRICE_MONTHLY!;
   
 try{
    const userId = await getUserId()

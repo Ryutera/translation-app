@@ -15,16 +15,12 @@ const Plans = () => {
 
 async function handlePayment(){
  
-  
-    const res = await axios.post("/api/checkout_sessions",{
-      selectedPlan:selectedPlan
-    })
-
-    
-  const url = res?.data?.url
-
-   if (url) {
-    window.location.href = url
+ try {
+    const res = await axios.post("/api/checkout_sessions", { selectedPlan });
+    const url = res.data?.url;
+    if (url) window.location.href = url;
+  } catch (e) {
+    console.error(e);
   }
 
    }

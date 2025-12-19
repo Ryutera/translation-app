@@ -14,11 +14,13 @@ const Plans = () => {
    const t = PLANS_UI[selectedLang] || PLANS_UI.Japanese
 
 async function handlePayment(){
+  console.log("クリック")
     const res = await axios.post("/api/checkout_sessions",{
       selectedPlan:selectedPlan
     })
 
-  const url = res.data.url
+     console.log(res,"クリック1")
+  const url = res?.data?.url
 
    if (url) {
     window.location.href = url

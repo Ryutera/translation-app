@@ -9,6 +9,8 @@ import { DialogHeader } from "./ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
 import HamburgerHeader from "./HamburgerHeader"
+import { Suspense } from "react"
+
 
 const HamburgerMenu = async () => {
 
@@ -29,7 +31,9 @@ const HamburgerMenu = async () => {
         <div className="flex flex-col justify-between  h-full pt-[30%] ">
 
           <HamburgerHeader/>
+         
           <TranslationHistory/>
+          
           <SubscriptionOption/>
             
 

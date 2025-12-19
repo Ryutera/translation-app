@@ -123,9 +123,8 @@ export async function checkQuotaToday(userId: string) {
 }
 
 
-export async function getTranslationHistory() {
+export async function getTranslationHistory(userId:string) {
 
-    const userId = await getUserId()
 
     if (!userId) return
 

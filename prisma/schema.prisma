@@ -39,8 +39,8 @@ model User {
 
 model Translation {
   id         String   @id @default(uuid())
-  user       User?    @relation(fields: [userId], references: [authUserId])
-  userId     String?
+  user       User?    @relation(fields: [userId], references: [authUserId], onDelete: Cascade)
+  userId     String
   sourceText String
   output     String
   createdAt  DateTime @default(now())

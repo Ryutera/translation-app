@@ -1,9 +1,9 @@
 import { stripe } from "@/lib/stripe";
 import getUserId from "@/lib/supabase/getUserId";
 import { headers } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req:Request){
+export async function POST(req:NextRequest){
     const {selectedPlan} = await req.json()
     const plan = selectedPlan as "annual" | "monthly";
  const PRICE_ID =

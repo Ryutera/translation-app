@@ -10,17 +10,21 @@ import {
  } from './ui/dialog'
 import { Button } from './ui/button'
 import { deleteAccount } from '@/app/action'
-import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 
 const AccountDeleteDialog = () => {
-    const router = useRouter()
+   
 
     const handleDelete =async()=>{
         const result = await deleteAccount()
         if (result?.success) {
+          
+          const supabase = createClient()
+           await supabase.auth.signOut();
           // deletion succeeded
           window.location.reload()
+  
         } else {
           // show error to user (could be replaced with UI toast)
           alert(`Failed to delete account`)

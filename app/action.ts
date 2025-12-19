@@ -231,6 +231,7 @@ export async function deleteAccount() {
         })
 
         // ログインの状態をuseAuthStoreに残さないため
+       
         revalidatePath("/")
         return { success: true }
 

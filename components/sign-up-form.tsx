@@ -46,14 +46,9 @@ export function SignUpForm({
         password,
         options: {
           //メール認証後ここに遷移
-          emailRedirectTo: `${window.location.origin}/protected`,
+          emailRedirectTo: `${window.location.origin}`,
         },
       });
-
-      const userauthId = data.user?.id
-    
-      
-
 
 
       if (error) throw error;
@@ -66,6 +61,18 @@ export function SignUpForm({
   };
 
 
+  //supabaseの方でトリガーしてuserをdbに追加するように指定
+  const handleGoogleAuth = () => {
+    const supabase = createClient()
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+       options: {
+    redirectTo: `${window.location.origin}/api/auth/callback`,
+  },
+    })
+
+  }
+
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -74,6 +81,37 @@ export function SignUpForm({
           <CardTitle className="text-2xl">Sign up</CardTitle>
           <CardDescription>Create a new account</CardDescription>
         </CardHeader>
+
+
+{/* google auth */}
+        <CardContent>
+       <Button
+  onClick={handleGoogleAuth}
+  className="w-full mb-7 text-black bg-white border flex items-center justify-center gap-2 py-5 hover:bg-neutral-50 hover:shadow"
+>
+  <img src="/google.svg" height={22} width={22} alt="Google" />
+  Continue with Google
+</Button>
+        
+         <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                or use email
+              </span>
+            </div>
+          </div>
+       
+ </CardContent>
+
+
+         
+     
+
+        
+
         <CardContent>
           <form onSubmit={handleSignUp}>
             <div className="flex flex-col gap-6">
@@ -117,7 +155,6 @@ export function SignUpForm({
                 {isLoading ? "Creating an account..." : "Sign up"}
               </Button>
 
-        
             </div>
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}

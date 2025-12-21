@@ -11,7 +11,6 @@ export default async function ProtectedPage() {
   } = await supabase.auth.getUser();
 
 
-// メールを踏んでここに遷移
   if (!user) {
     redirect("/auth/login"); 
   }

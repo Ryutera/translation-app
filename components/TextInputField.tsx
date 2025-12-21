@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecordButton from "./RecordButton";
 import { generateTranslation } from "@/app/action";
 import useQuota from "@/app/hooks/useQuota";
@@ -10,6 +10,7 @@ import PremiumOptionDialog from "./PremiumOptionDialog";
 import { TRANSLATION_UI } from "@/app/constants/textInputFieldData";
 import { useLangOpstion } from "@/lib/store/useLangOption";
 import { LangType } from "@/lib/type/type";
+
 
 
 type TranslationResultOk = {
@@ -40,7 +41,7 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
     const { decreaseCount, remaining, isLimitReached } = useQuota()
     const router = useRouter()
     const selectedLang = useLangOpstion((state) => state.selectedLang) as LangType
-
+  
 
     const t = TRANSLATION_UI[selectedLang] || TRANSLATION_UI.Japanese
 
@@ -86,6 +87,8 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
         }
     }
 
+
+
     return (
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
@@ -98,6 +101,10 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
                     //非ログインユーザー
                     isLimitReached ? <p className="text-sm">{t.limitReached}</p> : <p className="text-sm">{t.remainingFree}　{remaining}/3</p>
             }
+
+       
+
+
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <div className="relative w-full md:h-80 h-48">

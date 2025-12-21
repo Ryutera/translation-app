@@ -45,7 +45,7 @@ export default async function Home() {
         </a>
        
         <a 
-          href="/cial-law" 
+          href="/commercial-law" 
           className="hover:text-gray-700 transition-colors duration-200"
         >
           Terms of Service

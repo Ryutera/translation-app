@@ -13,13 +13,21 @@ const useQuota = () => {
     const userId = user?.id
 
 
+
+
+    // 残り回数の判定及び利用制限に達したかの判定
     useEffect(() => {
         const init = async () => {
             if (userId) {
                 try {
-               const used = await checkQuotaToday(userId)
-                const rest = Math.max(DAILY_LIMIT - used, 0);
-                rest > 0 ? setRemaining(rest): setIsLimitReached(true) 
+               const res = await checkQuotaToday()
+              if (res?.status === "limit_reached") {
+        setRemaining(0)
+        setIsLimitReached(true)
+        return
+              }
+            setRemaining(res?.remaining!)
+            setIsLimitReached(res?.remaining! <= 0)
                
                 } catch (error) {
                     console.log(error)
@@ -83,7 +91,7 @@ useEffect(() => {
     }
 
 
-    return { decreaseCount,remaining,isLimitReached }
+    return { decreaseCount,remaining,isLimitReached,setIsLimitReached }
 }
 
 export default useQuota

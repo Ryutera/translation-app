@@ -15,6 +15,7 @@ export default async function Home() {
   
  
       <div className="mt-16 mb-8 w-[85%] md:w-[60%] text-center md:text-left">
+
         <h1 className="text-4xl md:text-5xl font-black text-red-400  mb-4 tracking-tight">
           Pera<span className="">phrase</span>
         </h1>

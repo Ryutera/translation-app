@@ -15,8 +15,8 @@ const user = useAuthStore((state)=>state.user)
     </div>
   ) : (
     <div className="flex gap-2">
-      <Button asChild size="sm" variant={"outline"}>
-        <Link href="/auth/login">Login</Link>
+      <Button asChild variant={"outline"}>
+        <Link href="/auth/login" className="tracking-wider">Login</Link>
       </Button>
       
     </div>

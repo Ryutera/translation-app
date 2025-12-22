@@ -12,7 +12,10 @@ const HamburgerHeader = () => {
   return (
     <div className="flex justify-between items-center gap-6 px-4 ">
             {user &&<AccountInfo  email={email} />}
-            <LangSelector />
+            <div className='w-28'>
+ <LangSelector />
+            </div>
+           
           </div>
   )
 }

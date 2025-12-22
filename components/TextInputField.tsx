@@ -38,10 +38,10 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
     const [inputText, setInputText] = useState<string>("")
     const [loading, setLoading] = useState(false)
     const [output, setOutput] = useState<TranslationResult | null>(null)
-    const { decreaseCount, remaining, isLimitReached } = useQuota()
+    const { decreaseCount, remaining, isLimitReached, setIsLimitReached } = useQuota()
     const router = useRouter()
     const selectedLang = useLangOpstion((state) => state.selectedLang) as LangType
-  
+
 
     const t = TRANSLATION_UI[selectedLang] || TRANSLATION_UI.Japanese
 
@@ -49,10 +49,13 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
         try {
             setLoading(true)
             const res = await generateTranslation(inputText)
-            if (!res) {
+            const data = await JSON.parse(res)
+
+            if (data.status === "limit_reached") {
+                setIsLimitReached(true)
                 return
             }
-            const data = await JSON.parse(res)
+
             setOutput(data as TranslationResult)
 
             //履歴を即時表示するため
@@ -102,7 +105,7 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
                     isLimitReached ? <p className="text-sm">{t.limitReached}</p> : <p className="text-sm">{t.remainingFree}　{remaining}/3</p>
             }
 
-       
+
 
 
 

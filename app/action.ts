@@ -11,6 +11,20 @@ export const generateTranslation = async (input: string) => {
 
     const openai = new OpenAI();
 
+      const userId = await getUserId()
+
+
+
+      //ログイン状態であり、かつ利用制限に達した場合は翻訳を実行しない
+      if (userId) {
+         const res = await checkQuotaToday()
+        //  restがnullつまりcheckquotaで残りが0の場合はreturn
+         if (res?.status==="limit_reached") {
+            return JSON.stringify({ status: "limit_reached" })
+         }
+      }
+     
+
     const response = await openai.responses.create({
         model: "gpt-4.1",
         instructions: ` 
@@ -65,7 +79,7 @@ Always return ONLY valid JSON. No text before or after.
     });
 
     //ログイン時には翻訳結果をデータベースに追加
-    const userId = await getUserId()
+  
 
     if (userId) {
         try {
@@ -107,7 +121,11 @@ export async function createUser(id: string) {
 
 
 //ログインユーザーが24時間以内に利用した回数
-export async function checkQuotaToday(userId: string) {
+export async function checkQuotaToday() {
+    const userId = await getUserId()
+    if (!userId) {
+        return 
+    }
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000)
     const used = await prisma.translation.count({
         where: {
@@ -118,7 +136,16 @@ export async function checkQuotaToday(userId: string) {
         }
     })
 
-    return used
+    const remaining = 10 - used 
+
+    
+    if (remaining > 0) {
+        return { status: "ok", remaining }
+    }else{
+       return {status: "limit_reached", remaining: 0 }
+    }
+
+    
 
 }
 

@@ -19,7 +19,7 @@ const HeaderAuth = () => {
         <div className="text-red-400 font-bold text-lg h-full flex justify-center items-center "><Link href={"/"}>Peraphrase</Link></div>
 
         <div className="flex flex-row gap-3 justify-end items-center">
-          <div className="w-24 hidden md:block">
+          <div className="w-22 hidden md:block">
             <LangSelector />
           </div>
 

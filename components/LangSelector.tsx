@@ -20,7 +20,7 @@ const LangSelector = () => {
   <Select onValueChange={(value)=>setLang(value)} >
       <SelectTrigger className="w-full hover:bg-neutral-50 py-3">
         <Globe className='text-blue-400 '/>
-        <SelectValue placeholder={"日本語"}/>
+        <SelectValue placeholder={`${selectedLang ||  "日本語"}`}/>
       </SelectTrigger>
       <SelectContent >
         <SelectGroup>

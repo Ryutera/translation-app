@@ -61,7 +61,7 @@ export function SignUpForm({
   };
 
 
-  //supabaseの方でトリガーしてuserをdbに追加するように指定
+  //supabaseの方でトリガーしてuserをdbに追加する
   const handleGoogleAuth = () => {
     const supabase = createClient()
     supabase.auth.signInWithOAuth({

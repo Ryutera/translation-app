@@ -13,8 +13,6 @@ export const generateTranslation = async (input: string) => {
 
       const userId = await getUserId()
 
-
-
       //ログイン状態であり、かつ利用制限に達した場合は翻訳を実行しない
       if (userId) {
          const res = await checkQuotaToday()
@@ -78,6 +76,8 @@ Always return ONLY valid JSON. No text before or after.
         input: input
     });
 
+
+
     //ログイン時には翻訳結果をデータベースに追加
   
 
@@ -101,7 +101,7 @@ Always return ONLY valid JSON. No text before or after.
     return response.output_text
 }
 
-//(アカウントがない場合に)ユーザー
+//(アカウントがない場合に)ユーザーをdbに追加
 export async function createUser(id: string) {
 
     const hasAccount = await prisma.user.findUnique({

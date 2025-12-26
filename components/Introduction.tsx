@@ -51,7 +51,7 @@ const Introduction = () => {
                 </div>
             </section>
 
-            {/* Footer Banner */}
+            {/* フッター */}
             <section className="w-full max-w-4xl mt-32 mb-20 px-2">
                 <div className="bg-gradient-to-br from-red-100 to-red-50 p-1 rounded-[3.5rem] shadow-sm">
                     <div className="bg-white p-12 md:p-20 rounded-[3.4rem] text-center border border-white/50">

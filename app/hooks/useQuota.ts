@@ -4,9 +4,7 @@ import { checkQuotaToday } from '../action'
 import { useAuthStore } from '@/lib/store/useAuthStore';
 
 const useQuota = () => {
-    //無料ログインユーザー用の利用回数
-    const DAILY_LIMIT = 10;
-
+  
     const [remaining, setRemaining] = useState<number>(3);
     const [isLimitReached,setIsLimitReached] = useState(false)
     const user = useAuthStore((state)=>state.user)

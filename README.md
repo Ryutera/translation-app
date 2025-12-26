@@ -7,7 +7,7 @@
 <div align="center">
   <p><strong>App Screenshots</strong></p>
   <img src="https://github.com/user-attachments/assets/27fe6b0a-894a-442e-9db6-76abdf608a46" width="24%" alt="メイン画面">
-  <img src="https://github.com/user-attachments/assets/b4fd8890-c9da-44fa-86dc-c972513416c4" width="24%" alt="翻訳画面">
+  <img src="https://github.com/user-attachments/assets/e0421b00-af7a-4bdc-9604-b174cd39e52a" width="24%" alt="翻訳画面" />
   <img src="https://github.com/user-attachments/assets/99065cc7-3940-4f7d-9e66-ff98371891bc" width="24%" alt="メニュー">
   <img src="https://github.com/user-attachments/assets/c95638bd-1066-4378-ab2c-2d70df0268a7" width="24%" alt="サブスク">
   <p><em>左から：メインページ / 翻訳・言い換え実行 / ナビゲーション / サブスクリプションプラン</em></p>

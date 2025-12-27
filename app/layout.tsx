@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     default: "Peraphrase",
     template: "%s | Peraphrase",
   },
+  verification: {
+		google: "googledd588a3877a0a537.html",
+		},
   description:
     "Translate into Japanese that actually sounds natural. Rewrite your sentences into Japanese the way native speakers really use it.",
   openGraph: {

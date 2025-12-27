@@ -51,6 +51,7 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname !== "/" &&
     request.nextUrl.pathname !=="/commercial-law"&&
     request.nextUrl.pathname !=="/api/auth/callback"&&
+    request.nextUrl.pathname !== "/googledd588a3877a0a537.html"&&
     !user &&
     !request.nextUrl.pathname.startsWith("/login") &&
     !request.nextUrl.pathname.startsWith("/auth")

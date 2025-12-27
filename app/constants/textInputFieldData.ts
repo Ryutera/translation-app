@@ -9,6 +9,7 @@ export const TRANSLATION_UI = {
     resetNotice: "(24時間後に再び利用できます)",
     upgradePremium: "プレミアム登録をして利用回数を増やす",
     loginToIncrease: "ログインして利用回数を増やす",
+    note:"音声入力は選択中の言語設定に従います。"
   },
   English: {
     placeholder: "Type something to translate...",
@@ -20,6 +21,7 @@ export const TRANSLATION_UI = {
     resetNotice: "(Next reset: 24h)",
     upgradePremium: "Upgrade to Premium for unlimited access",
     loginToIncrease: "Sign in to get more translations",
+    note:"Voice input follows the selected language setting."
   },
   Korean: {
     placeholder: "번역할 내용을 입력하세요...",
@@ -31,6 +33,7 @@ export const TRANSLATION_UI = {
     resetNotice: "(24시간 후에 다시 충전됩니다)",
     upgradePremium: "프리미엄 등록하고 횟수 늘리기",
     loginToIncrease: "로그인하고 더 많은 횟수 받기",
+    note:"음성 입력은 선택한 언어 설정을 따릅니다."
   },
   Chinese: {
     placeholder: "请输入要翻译的句子...",
@@ -42,5 +45,6 @@ export const TRANSLATION_UI = {
     resetNotice: "(24小时后将重新开放)",
     upgradePremium: "加入高级版以增加次数",
     loginToIncrease: "登录以获得更多使用次数",
+    note:"语音输入将遵循当前选择的语言设置。"
   }
 };

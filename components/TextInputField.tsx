@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RecordButton from "./RecordButton";
 import { generateTranslation } from "@/app/action";
 import useQuota from "@/app/hooks/useQuota";
@@ -10,6 +10,7 @@ import PremiumOptionDialog from "./PremiumOptionDialog";
 import { TRANSLATION_UI } from "@/app/constants/textInputFieldData";
 import { useLangOpstion } from "@/lib/store/useLangOption";
 import { LangType } from "@/lib/type/type";
+import { Info } from "lucide-react";
 
 
 
@@ -111,17 +112,39 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <div className="relative w-full md:h-80 h-48">
-                    <textarea placeholder={`${t.placeholder}`} className="bg-white w-full md:h-72 h-36 rounded-xl p-2 outline-none mb-5 resize-none border border-3" onChange={(e) => setInputText(e.target.value)} value={inputText} />
+                    <textarea placeholder={`${t.placeholder}`} className="bg-white w-full md:h-72 h-36 rounded-xl p-2 outline-none  resize-none border border-3" onChange={(e) => setInputText(e.target.value)} value={inputText} />
                     <div className="absolute md:bottom-8 bottom-12 right-1 flex items-center justify-center rounded-full p-2">
                         <RecordButton setInputText={setInputText} />
+
                     </div>
+
                 </div>
 
+
                 <ResultView loading={loading} output={output} />
+
             </div>
+
 
             {renderTranslationButton()}
 
+<div className="w-[85%] md:w-[60%] flex justify-end ">
+  <div
+    className="
+      flex items-start items-center gap-1
+      text-[8px] md:text-[10px] sm:text-xs text-slate-500
+      bg-white/90 px-2 py-1 rounded-full
+      border border-slate-100 shadow-sm
+      leading-tight
+      max-w-full md:max-w-[420px]
+    "
+  >
+    <Info size={12} className="mt-[1px] shrink-0 text-slate-400" />
+    <span className="break-words">
+     {t.note}
+    </span>
+  </div>
+</div>
 
         </div>
 

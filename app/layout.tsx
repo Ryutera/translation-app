@@ -13,10 +13,43 @@ const defaultUrl = process.env.VERCEL_URL
   : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Peraphrase | Learn Natural Japanese Expressions",
-  description: "Peraphrase helps Japanese learners rewrite sentences into natural, native-level Japanese. Learn expressions textbooks never teach.",
+  metadataBase: new URL("https://peraphrase.com"),
+  title: {
+    default: "Peraphrase",
+    template: "%s | Peraphrase",
+  },
+  description:
+    "Translate into Japanese that actually sounds natural. Rewrite your sentences into Japanese the way native speakers really use it.",
+  openGraph: {
+    title: "Peraphrase",
+    description:
+      "Translate into Japanese that actually sounds natural. Rewrite your sentences into Japanese the way native speakers really use it.",
+    url: "https://peraphrase.com",
+    siteName: "Peraphrase",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Peraphrase - Natural Japanese paraphrasing tool",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Peraphrase",
+    description:
+      "Translate into Japanese that actually sounds natural. Rewrite your sentences into Japanese the way native speakers really use it.",
+    images: ["/og.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

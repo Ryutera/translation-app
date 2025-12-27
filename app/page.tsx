@@ -11,51 +11,64 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col items-center w-full bg-[#ffd1d112] overflow-scroll"
-     >
-  
- 
+    >
+
+
       <div className="mt-16 mb-8 w-[85%] md:w-[60%] text-center md:text-left">
 
         <h1 className="text-4xl md:text-5xl font-black text-red-400  mb-4 tracking-tight">
           Pera<span className="">phrase</span>
         </h1>
-        <HeroSection/>
+        <HeroSection />
       </div>
 
-<Suspense>
-  {/* サーバー側からuserIdを渡すためのコンポーネント */}
-  <TextInputFieldServer/>
-</Suspense>
-     
-<Introduction/>
 
- <footer className="w-full py-8 md:py-10 px-6 md:px-12 mt-10 border-t border-amber-100 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 text-gray-500 text-sm">
-      
-     
-      <p className="text-center md:text-left order-2 md:order-1">
-        © 2025 Peraphrase. All rights reserved.
-      </p>
+      <Suspense fallback={
+        <div className="my-10 w-full text-center flex flex-col items-center gap-5">
+          <p className="text-sm w-[40%] md:w-[15%] rounded-3xl h-5 bg-gray-200"></p>
 
-    
-      <div className="flex flex-row gap-6 items-center order-1 md:order-2">
-        <a 
-          href="mailto:ryutera.dev@gmail.com" 
-          className="hover:text-gray-700 transition-colors duration-200"
-        >
-          Contact
-        </a>
-       
-        <a 
-          href="/commercial-law" 
-          className="hover:text-gray-700 transition-colors duration-200"
-        >
-          Terms of Service
-        </a>
-      </div>
+          <div className=" md:w-[60%] w-[85%] gap-5">
+            <div className="relative w-full md:h-80 h-48">
+              <textarea className="bg-gray-200 w-full md:h-72 h-36 rounded-xl p-2" />
+            </div>
+          </div>
 
-    </footer>
+          <div className="bg-gray-200 md:w-[60%] w-[85%] py-3 rounded-2xl h-10"></div>
+        </div>
+      }>
+        {/* サーバー側からuserIdを渡すためのコンポーネント */}
+        <TextInputFieldServer />
+      </Suspense>
 
-     
+      <Introduction />
+
+      <footer className="w-full py-8 md:py-10 px-6 md:px-12 mt-10 border-t border-amber-100 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 text-gray-500 text-sm">
+
+
+        <p className="text-center md:text-left order-2 md:order-1">
+          © 2025 Peraphrase. All rights reserved.
+        </p>
+
+
+        <div className="flex flex-row gap-6 items-center order-1 md:order-2">
+          <a
+            href="mailto:ryutera.dev@gmail.com"
+            className="hover:text-gray-700 transition-colors duration-200"
+          >
+            Contact
+          </a>
+
+          <a
+            href="/commercial-law"
+            className="hover:text-gray-700 transition-colors duration-200"
+          >
+            Terms of Service
+          </a>
+        </div>
+
+      </footer>
+
+
     </main>
   );
 }

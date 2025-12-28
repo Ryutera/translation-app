@@ -46,7 +46,7 @@ export function SignUpForm({
         password,
         options: {
           //メール認証後ここに遷移
-          emailRedirectTo: `${window.location.origin}`,
+          emailRedirectTo: `${window.location.origin}/auth/confirm`,
         },
       });
 

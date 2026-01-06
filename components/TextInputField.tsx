@@ -32,10 +32,10 @@ export type TranslationResult = TranslationResultOk | TranslationResultInvalid;
 
 
 interface Props {
-    userId?: string
-    ifPremium?: boolean
+    isLoggedIn?: boolean
+    isPremium?: boolean
 }
-const TextInputField = ({ userId, ifPremium }: Props) => {
+const TextInputField = ({ isLoggedIn, isPremium }: Props) => {
     const [inputText, setInputText] = useState<string>("")
     const [loading, setLoading] = useState(false)
     const [output, setOutput] = useState<TranslationResult | null>(null)
@@ -59,7 +59,6 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
 
             setOutput(data as TranslationResult)
 
-            //履歴を即時表示するため
             router.refresh()
 
         } catch (err) {
@@ -70,44 +69,84 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
         }
     }
 
-    const renderTranslationButton = () => {
-        if (ifPremium) {
-            return (<button onClick={getTranslationData} disabled={!inputText} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>{t.translate}</button>)
-        } else if (userId && !isLimitReached) {
-            return (<button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>{t.translate}</button>)
-        } else if (userId && isLimitReached) {
-            return (
 
-                <Dialog>
-                    <DialogTrigger asChild><button className="bg-red-300 cursor-pointer  md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none">{t.upgradePremium}</button></DialogTrigger>
-                    <PremiumOptionDialog />
-                </Dialog>
+    const isPremiumUser = isPremium;
+    const isFreeUser = isLoggedIn && !isPremiumUser ;
+    const isGuest = !isLoggedIn;
 
-            )
-        } else if (!userId && !isLimitReached) {
-            return (<button onClick={() => { getTranslationData(); decreaseCount() }} disabled={!inputText} className={`${inputText ? "bg-red-300 cursor-pointer " : "bg-slate-300 cursor-default "} md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none`}>{t.translate}</button>)
-        } else if (!userId && isLimitReached) {
-            return (<button onClick={() => router.push("/auth/sign-up")} className="bg-red-300 cursor-pointer  md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white  outline-none">{t.loginToIncrease}</button>)
-        }
+    const canTranslate =
+  Boolean(inputText.trim()) &&
+  (isPremiumUser || !isLimitReached) &&
+  !loading;
+
+const renderTranslationButton = () => {
+  const shouldConsumeQuota = !isPremiumUser;
+
+  const handleTranslate = async () => {
+    await getTranslationData();
+    if (shouldConsumeQuota) decreaseCount();
+  };
+
+  const baseClass =
+    "md:w-[60%] w-[85%] py-3 rounded-2xl font-semibold text-white outline-none";
+
+  const translateClass = `${baseClass} ${
+    canTranslate ? "bg-red-300 cursor-pointer" : "bg-slate-300 cursor-default"
+  }`;
+
+  const primaryClass = `${baseClass} bg-red-300 cursor-pointer`;
+
+  // 制限到達（プレミアム以外）
+  if (!isPremiumUser && isLimitReached) {
+    if (isFreeUser) {
+      return (
+        <Dialog>
+          <DialogTrigger asChild>
+            <button className={primaryClass}>{t.upgradePremium}</button>
+          </DialogTrigger>
+          <PremiumOptionDialog />
+        </Dialog>
+      );
     }
+
+    if (isGuest) {
+      return (
+        <button
+          onClick={() => router.push("/auth/sign-up")}
+          className={primaryClass}
+        >
+          {t.loginToIncrease}
+        </button>
+      );
+    }
+  }
+
+  return (
+    <button
+      disabled={!canTranslate}
+      onClick={handleTranslate}
+      className={translateClass}
+    >
+      {t.translate}
+    </button>
+  );
+};
+
 
 
 
     return (
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
-            {ifPremium ?
+            {isPremiumUser  ?
                 <></>
-                : userId ?
+                : isLoggedIn ?
                     //無料ログインユーザー
                     isLimitReached ? <p className="text-sm">{t.limitDaily}<br />{t.resetNotice}</p> : <p>{t.remainingDaily} {remaining}/10</p>
                     :
                     //非ログインユーザー
                     isLimitReached ? <p className="text-sm">{t.limitReached}</p> : <p className="text-sm">{t.remainingFree}　{remaining}/3</p>
             }
-
-
-
 
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
@@ -128,9 +167,9 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
 
             {renderTranslationButton()}
 
-<div className="w-[85%] md:w-[60%] flex justify-end ">
-  <div
-    className="
+            <div className="w-[85%] md:w-[60%] flex justify-end ">
+                <div
+                    className="
       flex items-start items-center gap-1
       text-[8px] md:text-[10px] sm:text-xs text-slate-500
       bg-white/90 px-2 py-1 rounded-full
@@ -138,13 +177,13 @@ const TextInputField = ({ userId, ifPremium }: Props) => {
       leading-tight
       max-w-full md:max-w-[420px]
     "
-  >
-    <Info size={12} className="mt-[1px] shrink-0 text-slate-400" />
-    <span className="break-words">
-     {t.note}
-    </span>
-  </div>
-</div>
+                >
+                    <Info size={12} className="mt-[1px] shrink-0 text-slate-400" />
+                    <span className="break-words">
+                        {t.note}
+                    </span>
+                </div>
+            </div>
 
         </div>
 

@@ -195,9 +195,7 @@ export async function deleteTranslationHistory(id: string) {
 
 export async function checkPlan() {
     const userId = await getUserId()
-    if (!userId) {
-        return
-    }
+    if (!userId) return
 
     const user = await prisma.user.findFirst({
         where: {
@@ -214,7 +212,7 @@ export async function checkPlan() {
 
 
 
-//ユーザー情報の取得
+
 export async function getUserWithId(userId: string) {
 
     const userData = await prisma.user.findUnique({
@@ -228,11 +226,9 @@ export async function getUserWithId(userId: string) {
 
 
 
-//ユーザーの削除
+
 
 export async function deleteAccount() {
-
-
 
     const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE!, {
         auth: {
@@ -256,8 +252,6 @@ export async function deleteAccount() {
                 authUserId: userId
             }
         })
-
-        // ログインの状態をuseAuthStoreに残さないため
        
         revalidatePath("/")
         return { success: true }
@@ -293,7 +287,6 @@ export async function cancelSubscription(){
     const sub = res.data[0]
     const subId = sub.id
 
-    // すでに cancel_at_period_end が true なら、更新せずにその旨を返す
     if (sub.cancel_at_period_end) {
         return { 
             success: true, 

@@ -1,27 +1,23 @@
 
-
-
 import { checkPlan } from '@/app/action'
 import TextInputField from './TextInputField'
 import getUserId from '@/lib/supabase/getUserId'
 
-const   TextInputFieldServer = async() => {
+const TextInputFieldServer = async () => {
 
-    const userId = await getUserId()
-   
-    let ifPremium
+  const userId = await getUserId()
+  const isLoggedIn = Boolean(userId);
 
-       const res  = await checkPlan()
-      
-       //キャンセルした場合でも期限まで有効なので現在の時刻が期限よりも前か後で課金ユーザーかどうかを判定
-       ifPremium = res?.proUntil?.getTime()! > Date.now() 
-    
-   
+  const res = await checkPlan()
+
+  const isPremium = res?.proUntil?.getTime()! > Date.now()
+
+
   return (
     <>
-    <TextInputField userId={userId} ifPremium={ifPremium} />
+      <TextInputField isLoggedIn={isLoggedIn} isPremium={isPremium} />
     </>
   )
 }
 
-export default   TextInputFieldServer
+export default TextInputFieldServer

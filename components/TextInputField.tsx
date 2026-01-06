@@ -133,21 +133,34 @@ const renderTranslationButton = () => {
 };
 
 
+const getQuotaMessage = () =>{
+    if (isPremiumUser) return null
+    
+    if (isLoggedIn) {
+        if (isLimitReached) {
+           return  <p className="text-sm">{t.limitDaily}<br />{t.resetNotice}</p> 
+        }else{
+           return  <p>{t.remainingDaily} {remaining}/10</p>
+        }
+    }
+
+    if (isGuest) {
+        if (isLimitReached) {
+           return  <p className="text-sm">{t.limitReached}</p>
+        }else{
+           return  <p className="text-sm">{t.remainingFree}　{remaining}/3</p>
+        }
+        
+    }
+}
+
 
 
     return (
 
         <div className="my-10 w-full text-center flex flex-col items-center gap-5">
-            {isPremiumUser  ?
-                <></>
-                : isLoggedIn ?
-                    //無料ログインユーザー
-                    isLimitReached ? <p className="text-sm">{t.limitDaily}<br />{t.resetNotice}</p> : <p>{t.remainingDaily} {remaining}/10</p>
-                    :
-                    //非ログインユーザー
-                    isLimitReached ? <p className="text-sm">{t.limitReached}</p> : <p className="text-sm">{t.remainingFree}　{remaining}/3</p>
-            }
-
+           
+           {getQuotaMessage()}
 
             <div className={`${(output || loading) && "md:grid grid-cols-2"}  md:w-[60%] w-[85%] gap-5`}>
                 <div className="relative w-full md:h-80 h-48">

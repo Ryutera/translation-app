@@ -48,7 +48,6 @@ export async function POST(req: Request) {
         subscriptionId:subscriptionId,
         plan: plan,
         proUntil: new Date(endAt * 1000)
-
       }
     })
 

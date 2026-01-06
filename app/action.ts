@@ -167,9 +167,7 @@ export async function getTranslationHistory(userId:string) {
             console.error("Database Error in getTranslationHistory:")
             return { data: null, error: "Failed to fetch translation history." }
         }
-   
 
-    
 }
 
 

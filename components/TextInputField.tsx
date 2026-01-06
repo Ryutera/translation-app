@@ -135,7 +135,7 @@ const renderTranslationButton = () => {
 
 const getQuotaMessage = () =>{
     if (isPremiumUser) return null
-    
+
     if (isLoggedIn) {
         if (isLimitReached) {
            return  <p className="text-sm">{t.limitDaily}<br />{t.resetNotice}</p> 
@@ -167,9 +167,7 @@ const getQuotaMessage = () =>{
                     <textarea placeholder={`${t.placeholder}`} className="bg-white w-full md:h-72 h-36 rounded-xl p-2 outline-none  resize-none border border-3" onChange={(e) => setInputText(e.target.value)} value={inputText} />
                     <div className="absolute md:bottom-8 bottom-12 right-1 flex items-center justify-center rounded-full p-2">
                         <RecordButton setInputText={setInputText} />
-
                     </div>
-
                 </div>
 
 

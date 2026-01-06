@@ -27,7 +27,6 @@ export default async function Home() {
       <Suspense fallback={
        <TextInputSkelton/>
       }>
-        {/* サーバー側からuserIdを渡すためのコンポーネント */}
         <TextInputFieldServer />
       </Suspense>
 

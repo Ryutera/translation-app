@@ -8,10 +8,7 @@ import getUserId from "@/lib/supabase/getUserId"
 
 const TranslationHistory = async() => {
 const userId = await getUserId()
-if (!userId) {
-   return <HistoryAuthGuide/>
-
-}
+if (!userId) {  return <HistoryAuthGuide/>}
 
 let translations
 try {

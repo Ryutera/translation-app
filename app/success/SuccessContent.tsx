@@ -58,7 +58,6 @@ const SuccessContent = async({session_id}:Props) => {
           
         </div>
 
-        {/* アクションボタン */}
          <Link href="/"> <Button className=' mt-10'>Home</Button></Link>
          
 

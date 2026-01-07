@@ -34,11 +34,11 @@ const useQuota = () => {
 
             } else {
                 const data = localStorage.getItem("usageCount")
-                // ローカルストレージにデータがない場合に初期値の3を入れる
-                const trialUsage = 3
+               
+                const Trial_Usage = 3
                 if (!data) {
-                    localStorage.setItem("usageCount", JSON.stringify(trialUsage))
-                    setRemaining(trialUsage)
+                    localStorage.setItem("usageCount", JSON.stringify(Trial_Usage))
+                    setRemaining(Trial_Usage)
 
                     setIsLimitReached(false);
 

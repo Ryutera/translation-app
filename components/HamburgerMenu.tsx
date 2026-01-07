@@ -9,7 +9,7 @@ import { DialogHeader } from "./ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import TranslationHistory from "./TranslationHistory"
 import HamburgerHeader from "./HamburgerHeader"
-import { Suspense } from "react"
+
 
 
 const HamburgerMenu = async () => {

@@ -1,29 +1,29 @@
 
 import { create } from "zustand";
 import { User } from "@supabase/supabase-js";
-import { createClient } from "@/lib/supabase/client"; 
+import { createClient } from "@/lib/supabase/client";
 
 interface AuthState {
-  user: User | null; 
+  user: User | null;
 
-  initializeAuth: () => void; 
+  initializeAuth: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null, 
-  
+  user: null,
+
   initializeAuth: () => {
     const supabase = createClient();
-    
-   
+
+
     supabase.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_IN'){
-set({ user: session?.user ?? null });
-    }else if (event === 'SIGNED_OUT'){
-set({ user:  null });
-    }
-      
+      if (event === 'SIGNED_IN') {
+        set({ user: session?.user ?? null });
+      } else if (event === 'SIGNED_OUT') {
+        set({ user: null });
+      }
+
     });
-    
+
   },
 }));

@@ -123,9 +123,8 @@ export async function createUser(id: string) {
 //ログインユーザーが24時間以内に利用した回数
 export async function checkQuotaToday() {
     const userId = await getUserId()
-    if (!userId) {
-        return 
-    }
+    if (!userId) { return  }
+    
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000)
     const used = await prisma.translation.count({
         where: {
@@ -208,19 +207,6 @@ export async function checkPlan() {
 
 }
 
-
-
-
-export async function getUserWithId(userId: string) {
-
-    const userData = await prisma.user.findUnique({
-        where: {
-            authUserId: userId
-        }
-    })
-
-    return userData
-}
 
 
 

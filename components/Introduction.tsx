@@ -24,7 +24,7 @@ const Introduction = () => {
                 <div className='md:mx-[20%]'>
                     <p>{t.conceptDesc1}</p>
                     <br />
-                    <p>{t.conceptDesc2}d</p>
+                    <p>{t.conceptDesc2}</p>
                 </div>
             </section>
 
